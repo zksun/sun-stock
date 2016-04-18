@@ -50,6 +50,7 @@ public final class SohuInfoExplorer implements Explorer {
 		return _instance;
 	}
 
+	@Override
 	public Long calculateAllotmentPrice(String stockCode, Date date) {
 		List<KlineItem> klineInfo = getKlineInfo(stockCode, Timer.DAY, false, date, -21);
 		if (CollectionUtils.isEmpty(klineInfo)) {
@@ -59,6 +60,7 @@ public final class SohuInfoExplorer implements Explorer {
 		return calculateAveragePrice(klineInfo);
 	}
 
+	@Override
 	public Long calculateAllotmentPrice(String stockCode, String date) {
 		List<KlineItem> klineInfo = getKlineInfo(stockCode, Timer.DAY, false, date, -21);
 		if (CollectionUtils.isEmpty(klineInfo)) {
@@ -80,6 +82,7 @@ public final class SohuInfoExplorer implements Explorer {
 	}
 
 
+	@Override
 	public String getTradeDetailInfo(String stockCode) {
 		if (StringUtils.isBlank(stockCode)) {
 			throw new NullPointerException("no stockCode");
@@ -100,6 +103,7 @@ public final class SohuInfoExplorer implements Explorer {
 		return null;
 	}
 
+	@Override
 	public List<KlineItem> getKlineInfo(String stockCode, Timer timer, boolean adjust, String startDay, int count) {
 		try {
 			return getKlineInfo(stockCode, timer, adjust, new SimpleDateFormat(StockUtil.COMMON_DATE_FORMATTER).parse(startDay), count);
@@ -109,6 +113,7 @@ public final class SohuInfoExplorer implements Explorer {
 		return null;
 	}
 
+	@Override
 	public List<KlineItem> getKlineInfo(String stockCode, Timer timer, boolean adjust, Date startDay, int count) {
 
 		if (StringUtils.isBlank(stockCode) || null == timer) {
@@ -147,6 +152,7 @@ public final class SohuInfoExplorer implements Explorer {
 		return null;
 	}
 
+	@Override
 	public List<ExcludeRights> getExcludeRightsInfo(String stockCode, Timer timer) {
 		if (StringUtils.isBlank(stockCode) || null == timer) {
 			throw new NullPointerException();
