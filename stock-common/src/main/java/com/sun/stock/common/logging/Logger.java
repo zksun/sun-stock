@@ -23,6 +23,8 @@ public interface Logger {
 
 	void info(String msg, String... args);
 
+	void info(String msg, Object... args);
+
 	void info(String msg, Throwable ex, String... args);
 
 	boolean isInfoEnabled();
@@ -37,11 +39,15 @@ public interface Logger {
 
 	void error(String msg, String... args);
 
+	void error(String msg, Object... args);
+
 	void error(String msg, Throwable ex, String... args);
 
 	boolean isErrorEnabled();
 
 	void fatal(String msg, String... args);
+
+	void fatal(String msg, Object... args);
 
 	void fatal(String msg, Throwable ex, String... args);
 
