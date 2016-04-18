@@ -5,9 +5,6 @@ package com.sun.stock.util;
  */
 public final class SortUtil {
 
-
-
-
 	private SortUtil(){
 
 	}
