@@ -3,6 +3,7 @@ package com.sun.stock.information.http.sohu;
 import com.sun.stock.domain.enums.Timer;
 import com.sun.stock.domain.information.ExcludeRights;
 import com.sun.stock.domain.information.KlineItem;
+import com.sun.stock.information.Explorer;
 import com.sun.stock.util.StockUtil;
 import com.sun.stock.util.http.HttpGet;
 import org.apache.commons.collections4.CollectionUtils;
@@ -16,7 +17,7 @@ import java.util.List;
 /**
  * Created by zksun on 16-2-13.
  */
-public final class SohuInfoExplorer {
+public final class SohuInfoExplorer implements Explorer {
 
 	private static SohuInfoExplorer _instance;
 
@@ -39,8 +40,6 @@ public final class SohuInfoExplorer {
 	private final static String INFO_ADJUST_PARAM = "dr";
 
 	private final static String INFO_STAR_DAY_PARAM = "date";
-
-	private final static int INFO_DEFAULT_COUNT = 100;
 
 	private final static String DEFAULT_ADJUST = "0";
 
