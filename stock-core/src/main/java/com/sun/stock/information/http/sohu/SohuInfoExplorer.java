@@ -19,6 +19,8 @@ import java.util.List;
  */
 public final class SohuInfoExplorer implements Explorer {
 
+
+
 	private static SohuInfoExplorer _instance;
 
 	private final static String DEFAULT_LOCAL = "cn";
