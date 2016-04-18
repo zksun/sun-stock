@@ -64,10 +64,9 @@ public class HttpClientTest {
 	@Test
 	public void httpClientOrdinaryGet() throws IOException {
 		HttpClient client = new HttpClient();
-		//client.getHostConfiguration().setHost(PathConstant.MAIN_PATH, 80, "http");
 		GetMethod method = new GetMethod(PathConstant.MAIN_PATH + PathConstant.INFO_PATH + "?type=tradedetail");
-		client.executeMethod(method);   //打印服务器返回的状态
-		System.out.println(method.getStatusLine());   //打印结果页面
+		client.executeMethod(method);
+		System.out.println(method.getStatusLine());
 		String response = new String(method.getResponseBodyAsString().getBytes("8859_1"));
 
 		System.out.println(response);
