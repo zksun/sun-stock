@@ -5,10 +5,10 @@ import com.sun.stock.common.IOHandler;
 /**
  * Created by zksun on 16-2-10.
  */
-public class IOReadLineTestHandler implements IOHandler<Void, String> {
-	@Override
-	public Void execute(String value) {
-		System.out.println(value);
-		return null;
-	}
+public class IOReadLineTestHandler implements IOHandler<String> {
+    @Override
+    public void execute(String value) {
+        System.out.println(value);
+    }
+
 }

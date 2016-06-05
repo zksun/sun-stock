@@ -9,19 +9,19 @@ import java.io.Serializable;
  */
 public class Stock implements Serializable {
 	/**
-	 * ¹ÉÆ±id
+	 * è‚¡ç¥¨Id
 	 */
 	private String stockId;
 	/**
-	 * ³É½»¼Û
+	 * äº¤æ˜“ä»·
 	 */
 	private Long tradePrice;
 	/**
-	 * ³ıÈ¨¼Û
+	 * é™¤æƒä»·
 	 */
 	private Long excludePrice;
 	/**
-	 * ¹ÉÆ±ÀàĞÍ
+	 * è‚¡ç¥¨ç±»å‹
 	 */
 	private StockType stockType;
 

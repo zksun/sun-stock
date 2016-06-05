@@ -7,17 +7,20 @@ import com.sun.stock.common.IOHandler;
  * the AlgorithmInterface and the IOHandler interface's adapter
  * create the datasource and the Algorithm's relationship
  */
-public abstract class AbstractAlgorithmHandler<T, V, M> implements Algorithm<M>, IOHandler<T, V> {
+public abstract class AbstractAlgorithmHandler<V, M> implements Algorithm<M>, IOHandler<V> {
 
-	@Override
-	public T execute(V value) {
-		selectAlgorithm().algorithm(null, createAlgorithmMessage(value));
-		return null;
-	}
+    @Override
+    public void execute(V value) {
+        selectAlgorithm().algorithm(getContext(), createAlgorithmMessage(value));
+    }
 
-	protected abstract Algorithm selectAlgorithm();
+    protected abstract Algorithm selectAlgorithm();
 
-	protected abstract M createAlgorithmMessage(V value);
+    protected abstract M createAlgorithmMessage(V value);
+
+    protected AlgorithmContext getContext() {
+        return null;
+    }
 
 
 }
