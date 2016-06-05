@@ -2,12 +2,10 @@ package com.sun.stock.test;
 
 import com.sun.stock.common.IOHandler;
 import com.sun.stock.domain.StockTradeDetail;
-import com.sun.stock.domain.enums.*;
 import com.sun.stock.domain.information.ExcludeRights;
-import com.sun.stock.information.http.sohu.SohuInfoExplorer;
+import com.sun.stock.informations.http.sohu.SohuInfoExplorer;
 import com.sun.stock.util.StockAlgorithmUtil;
 import com.sun.stock.util.StockUtil;
-import com.sun.xml.internal.bind.v2.runtime.output.SAXOutput;
 
 import java.math.BigDecimal;
 import java.nio.ByteBuffer;
@@ -15,7 +13,6 @@ import java.nio.ByteOrder;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.*;
-import java.util.concurrent.ConcurrentHashMap;
 
 /**
  * Created by zksun on 16-2-11.

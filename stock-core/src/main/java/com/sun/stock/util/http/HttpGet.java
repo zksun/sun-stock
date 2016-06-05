@@ -1,7 +1,7 @@
 package com.sun.stock.util.http;
 
 import com.google.gson.Gson;
-import com.sun.stock.information.InformationHandler;
+import com.sun.stock.informations.InformationHandler;
 import org.apache.commons.collections4.CollectionUtils;
 import org.apache.commons.httpclient.DefaultHttpMethodRetryHandler;
 import org.apache.commons.httpclient.HttpClient;

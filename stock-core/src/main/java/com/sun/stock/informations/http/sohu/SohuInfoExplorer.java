@@ -1,9 +1,9 @@
-package com.sun.stock.information.http.sohu;
+package com.sun.stock.informations.http.sohu;
 
 import com.sun.stock.domain.enums.Timer;
 import com.sun.stock.domain.information.ExcludeRights;
 import com.sun.stock.domain.information.KlineItem;
-import com.sun.stock.information.Explorer;
+import com.sun.stock.informations.Explorer;
 import com.sun.stock.util.StockUtil;
 import com.sun.stock.util.http.HttpGet;
 import org.apache.commons.collections4.CollectionUtils;

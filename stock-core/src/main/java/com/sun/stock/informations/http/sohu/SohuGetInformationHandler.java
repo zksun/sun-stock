@@ -1,10 +1,10 @@
-package com.sun.stock.information.http.sohu;
+package com.sun.stock.informations.http.sohu;
 
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 import com.sun.stock.domain.information.ExcludeRights;
 import com.sun.stock.domain.information.KlineItem;
-import com.sun.stock.information.InformationHandler;
+import com.sun.stock.informations.InformationHandler;
 import com.sun.stock.util.StockUtil;
 import org.apache.commons.collections4.CollectionUtils;
 import org.apache.commons.lang3.StringUtils;

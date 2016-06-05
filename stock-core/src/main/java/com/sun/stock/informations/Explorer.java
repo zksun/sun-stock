@@ -1,4 +1,4 @@
-package com.sun.stock.information;
+package com.sun.stock.informations;
 
 import com.sun.stock.domain.enums.Timer;
 import com.sun.stock.domain.information.ExcludeRights;

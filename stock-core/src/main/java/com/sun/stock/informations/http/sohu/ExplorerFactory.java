@@ -1,6 +1,6 @@
-package com.sun.stock.information.http.sohu;
+package com.sun.stock.informations.http.sohu;
 
-import com.sun.stock.information.Explorer;
+import com.sun.stock.informations.Explorer;
 
 /**
  * Created by zksun on 16-4-19.

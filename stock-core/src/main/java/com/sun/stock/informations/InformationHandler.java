@@ -1,4 +1,4 @@
-package com.sun.stock.information;
+package com.sun.stock.informations;
 
 /**
  * Created by zksun on 16-2-13.

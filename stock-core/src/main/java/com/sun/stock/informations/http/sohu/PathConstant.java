@@ -1,4 +1,4 @@
-package com.sun.stock.information.http.sohu;
+package com.sun.stock.informations.http.sohu;
 
 /**
  * Created by zksun on 16-2-13.

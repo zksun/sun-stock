@@ -1,6 +1,6 @@
 package com.sun.stock.test;
 
-import com.sun.stock.information.http.sohu.SohuInfoExplorer;
+import com.sun.stock.informations.http.sohu.SohuInfoExplorer;
 import org.junit.Test;
 
 import java.lang.reflect.Method;
