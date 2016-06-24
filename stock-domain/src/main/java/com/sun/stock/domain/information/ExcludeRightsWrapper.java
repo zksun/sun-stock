@@ -80,9 +80,9 @@ public class ExcludeRightsWrapper {
 			throw new IllegalArgumentException("error price");
 		}
 		Long numerator = tradedPrice * 10L
-				- rights.getDistribute()
-				+ rights.getAllotmentPrice()
-				* rights.getAllotmentStock();
+				- rights.getDistribute()//每十股分红
+				+ rights.getAllotmentPrice()//每十股配股价
+				* rights.getAllotmentStock();//每十股配股
 
 		if (numerator < 0) {
 			throw new IllegalArgumentException("error price");

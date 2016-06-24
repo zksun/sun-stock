@@ -1,5 +1,6 @@
 package com.sun.stock.test;
 
+import com.sun.stock.algorithm.AlgorithmContext;
 import com.sun.stock.common.IOHandler;
 import com.sun.stock.domain.StockTradeDetail;
 import com.sun.stock.domain.information.ExcludeRights;
@@ -17,7 +18,7 @@ import java.util.*;
 /**
  * Created by zksun on 16-2-11.
  */
-public class IOGetBytesTestHandler implements IOHandler<byte[]> {
+public class IOGetBytesTestHandler implements IOHandler<byte[], AlgorithmContext> {
 
     private Map<Long, Long> dataCache = new TreeMap<>(new Comparator<Long>() {
         @Override
@@ -32,7 +33,6 @@ public class IOGetBytesTestHandler implements IOHandler<byte[]> {
             return o2.compareTo(o1);
         }
     });
-
 
     private List<ExcludeRights> excludeRightses = null;
 
@@ -49,7 +49,7 @@ public class IOGetBytesTestHandler implements IOHandler<byte[]> {
     }
 
     @Override
-    public void execute(byte[] value) {
+    public void execute(byte[] value, AlgorithmContext context) {
 
 //		if (!dateString.equals("20160225")) {
 //			return null;
@@ -105,7 +105,6 @@ public class IOGetBytesTestHandler implements IOHandler<byte[]> {
 
     }
 
-
     private void reportStockTradeDetail(StockTradeDetail detail) {
         if (this.stockTradeDataCache.containsKey(detail.getExRightsPrice())) {
             List<StockTradeDetail> stockTradeDetails = this.stockTradeDataCache.get(detail.getExRightsPrice());
@@ -152,5 +151,6 @@ public class IOGetBytesTestHandler implements IOHandler<byte[]> {
             return source - 780 + 120;
         }
     }
+
 
 }

@@ -8,7 +8,7 @@ import com.sun.stock.domain.StockTradeDetail;
 /**
  * Created by zksun on 6/5/16.
  */
-public class DecodeHandler extends AbstractAlgorithmHandler<byte[], StockTradeDetail> {
+public class DecodeHandler extends AbstractAlgorithmHandler<AlgorithmContext, StockTradeDetail, String> {
 
     @Override
     protected Algorithm selectAlgorithm() {
@@ -16,10 +16,10 @@ public class DecodeHandler extends AbstractAlgorithmHandler<byte[], StockTradeDe
     }
 
     @Override
-    protected StockTradeDetail createAlgorithmMessage(byte[] value) {
-
+    protected String createAlgorithmMessage(StockTradeDetail value) {
         return null;
     }
+
 
     @Override
     public Algorithm parent() {
@@ -32,7 +32,9 @@ public class DecodeHandler extends AbstractAlgorithmHandler<byte[], StockTradeDe
     }
 
     @Override
-    public void algorithm(AlgorithmContext context, StockTradeDetail message) {
+    public void algorithm(AlgorithmContext context, String message) {
 
     }
+
+
 }
