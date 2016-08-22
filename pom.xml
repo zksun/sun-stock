@@ -14,6 +14,7 @@
         <module>stock-core</module>
         <module>stock-common</module>
         <module>stock-domain</module>
+        <module>stock-ml</module>
     </modules>
 
 
