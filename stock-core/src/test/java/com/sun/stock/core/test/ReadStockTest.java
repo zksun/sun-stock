@@ -1,18 +1,20 @@
 package com.sun.stock.core.test;
 
 import com.sun.stock.core.common.internal.IOUtil;
-import com.sun.stock.core.util.StockUtil;
 import com.sun.stock.core.domain.StockTradeDetail;
 import com.sun.stock.core.domain.enums.StockType;
 import com.sun.stock.core.system.Environment;
+import com.sun.stock.core.util.StockUtil;
 import org.apache.commons.collections4.CollectionUtils;
 import org.junit.Assert;
 import org.junit.Test;
 
 import java.io.File;
-import java.io.FileNotFoundException;
 import java.text.ParseException;
-import java.util.*;
+import java.util.Collections;
+import java.util.Comparator;
+import java.util.List;
+import java.util.Map;
 
 /**
  * Created by zksun on 16-2-10.
@@ -48,15 +50,15 @@ public class ReadStockTest {
         }
     }
 
-    @Test
-    public void testDealStockDataFileLine() {
-        try {
-            File stockDataFile = StockUtil.getStockDataFile(StockType.SHANGHAI, "601186", "20160102", Environment.STOCK_ROOT_PATH);
-            IOUtil.getFileByLine(stockDataFile, new IOReadLineTestHandler());
-        } catch (ParseException e) {
-            e.printStackTrace();
-        }
-    }
+//    @Test
+//    public void testDealStockDataFileLine() {
+//        try {
+//            File stockDataFile = StockUtil.getStockDataFile(StockType.SHANGHAI, "601186", "20160102", Environment.STOCK_ROOT_PATH);
+//            IOUtil.getFileByLine(stockDataFile, new IOReadLineTestHandler());
+//        } catch (ParseException e) {
+//            e.printStackTrace();
+//        }
+//    }
 
 //    @Test
 //    public void testDealStockDataFileBytes() {
