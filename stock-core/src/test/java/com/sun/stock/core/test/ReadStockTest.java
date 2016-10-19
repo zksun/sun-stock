@@ -58,74 +58,74 @@ public class ReadStockTest {
         }
     }
 
-    @Test
-    public void testDealStockDataFileBytes() {
-        try {
-            File stockDataFile = StockUtil.getStockDataFile(StockType.SHENZHEN, "002024", "20151231", Environment.STOCK_ROOT_PATH);
-            IOUtil.getDataFromFileByBuffer(stockDataFile, new IOGetBytesTestHandler("002024"), 16);
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-    }
+//    @Test
+//    public void testDealStockDataFileBytes() {
+//        try {
+//            File stockDataFile = StockUtil.getStockDataFile(StockType.SHENZHEN, "002024", "20151231", Environment.STOCK_ROOT_PATH);
+//            IOUtil.getDataFromFileByBuffer(stockDataFile, new IOGetBytesTestHandler("002024"), 16);
+//        } catch (Exception e) {
+//            e.printStackTrace();
+//        }
+//    }
 
-    @Test
-    public void testDealAllStockDataFilesBytes() {
-        List<File> stockDataFiles = StockUtil.getAllStockDataFiles(StockType.SHANGHAI, "600718");
-        if (CollectionUtils.isNotEmpty(stockDataFiles)) {
-            IOGetBytesTestHandler ioGetBytesTestHandler = new IOGetBytesTestHandler("600718");
-            for (File stockDataFile : stockDataFiles) {
-                try {
-                    ioGetBytesTestHandler.setDateString(stockDataFile.getName().split("\\.")[0]);
-                    IOUtil.getDataFromFileByBuffer(stockDataFile, ioGetBytesTestHandler, 16);
-                } catch (FileNotFoundException e) {
-                    e.printStackTrace();
-                }
-            }
-            List<Map.Entry<Long, Long>> entries = ioGetBytesTestHandler.sortMap();
-            System.out.println(entries.size());
-        }
-    }
+//    @Test
+//    public void testDealAllStockDataFilesBytes() {
+//        List<File> stockDataFiles = StockUtil.getAllStockDataFiles(StockType.SHANGHAI, "600718");
+//        if (CollectionUtils.isNotEmpty(stockDataFiles)) {
+//            IOGetBytesTestHandler ioGetBytesTestHandler = new IOGetBytesTestHandler("600718");
+//            for (File stockDataFile : stockDataFiles) {
+//                try {
+//                    ioGetBytesTestHandler.setDateString(stockDataFile.getName().split("\\.")[0]);
+//                    IOUtil.getDataFromFileByBuffer(stockDataFile, ioGetBytesTestHandler, 16);
+//                } catch (FileNotFoundException e) {
+//                    e.printStackTrace();
+//                }
+//            }
+//            List<Map.Entry<Long, Long>> entries = ioGetBytesTestHandler.sortMap();
+//            System.out.println(entries.size());
+//        }
+//    }
 
-    @Test
-    public void testDealHuShen300LotsStockDataFileBytes() {
-        List<String> allStockDirectoryNames = StockUtil.getAllStockDirectoryNames(Environment.STOCK_ROOT_PATH);
-        if (CollectionUtils.isNotEmpty(allStockDirectoryNames)) {
-            List<StockEntry> list = new ArrayList<>(allStockDirectoryNames.size());
-            int i = 0;
-            for (String name : allStockDirectoryNames) {
-                if (StockUtil.isStockDirectoryName(name)) {
-                    String[] stockCode = StockUtil.getStockCode(name);
-                    List<File> stockDataFiles = StockUtil.getAllStockDataFiles(StockType.getTypeByDesc(stockCode[0]), stockCode[1]);
-                    if (CollectionUtils.isNotEmpty(stockDataFiles)) {
-                        IOGetBytesTestHandler ioGetBytesTestHandler = new IOGetBytesTestHandler(stockCode[1]);
-                        for (File stockDataFile : stockDataFiles) {
-                            try {
-                                ioGetBytesTestHandler.setDateString(stockDataFile.getName().split("\\.")[0]);
-                                IOUtil.getDataFromFileByBuffer(stockDataFile, ioGetBytesTestHandler, 16);
-                            } catch (FileNotFoundException e) {
-                                e.printStackTrace();
-                            }
-                        }
-                        StockEntry stockEntry = new StockEntry();
-                        stockEntry.dataCache = ioGetBytesTestHandler.getDataCache();
-                        stockEntry.sortMap = ioGetBytesTestHandler.sortMap();
-                        stockEntry.stockTradeDataCache = ioGetBytesTestHandler.getStockTradeDataCache();
-                        list.add(stockEntry);
-                    }
-                }
-                try {
-                    Thread.sleep(100L);
-                } catch (InterruptedException e) {
-                    //ignore
-                }
-                i++;
-                System.out.println("check stock: " + i + "name: " + name);
-            }
-            List<StockEntry> list1 = sortStocks(list);
-            System.out.println("end");
-        }
-
-    }
+//    @Test
+//    public void testDealHuShen300LotsStockDataFileBytes() {
+//        List<String> allStockDirectoryNames = StockUtil.getAllStockDirectoryNames(Environment.STOCK_ROOT_PATH);
+//        if (CollectionUtils.isNotEmpty(allStockDirectoryNames)) {
+//            List<StockEntry> list = new ArrayList<>(allStockDirectoryNames.size());
+//            int i = 0;
+//            for (String name : allStockDirectoryNames) {
+//                if (StockUtil.isStockDirectoryName(name)) {
+//                    String[] stockCode = StockUtil.getStockCode(name);
+//                    List<File> stockDataFiles = StockUtil.getAllStockDataFiles(StockType.getTypeByDesc(stockCode[0]), stockCode[1]);
+//                    if (CollectionUtils.isNotEmpty(stockDataFiles)) {
+//                        IOGetBytesTestHandler ioGetBytesTestHandler = new IOGetBytesTestHandler(stockCode[1]);
+//                        for (File stockDataFile : stockDataFiles) {
+//                            try {
+//                                ioGetBytesTestHandler.setDateString(stockDataFile.getName().split("\\.")[0]);
+//                                IOUtil.getDataFromFileByBuffer(stockDataFile, ioGetBytesTestHandler, 16);
+//                            } catch (FileNotFoundException e) {
+//                                e.printStackTrace();
+//                            }
+//                        }
+//                        StockEntry stockEntry = new StockEntry();
+//                        stockEntry.dataCache = ioGetBytesTestHandler.getDataCache();
+//                        stockEntry.sortMap = ioGetBytesTestHandler.sortMap();
+//                        stockEntry.stockTradeDataCache = ioGetBytesTestHandler.getStockTradeDataCache();
+//                        list.add(stockEntry);
+//                    }
+//                }
+//                try {
+//                    Thread.sleep(100L);
+//                } catch (InterruptedException e) {
+//                    //ignore
+//                }
+//                i++;
+//                System.out.println("check stock: " + i + "name: " + name);
+//            }
+//            List<StockEntry> list1 = sortStocks(list);
+//            System.out.println("end");
+//        }
+//
+//    }
 
     static class StockEntry {
         List<Map.Entry<Long, Long>> sortMap;

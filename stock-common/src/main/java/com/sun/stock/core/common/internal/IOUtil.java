@@ -3,9 +3,25 @@ package com.sun.stock.core.common.internal;
 
 import com.sun.stock.core.common.IOHandler;
 
-import java.io.*;
+import java.io.BufferedInputStream;
+import java.io.BufferedReader;
+import java.io.ByteArrayInputStream;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.FileReader;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.OutputStream;
 import java.net.URL;
-import java.util.*;
+import java.util.Arrays;
+import java.util.Enumeration;
+import java.util.HashSet;
+import java.util.Iterator;
+import java.util.LinkedList;
+import java.util.List;
+import java.util.NoSuchElementException;
+import java.util.Set;
 
 /**
  * Created by zksun on 16-1-8.
@@ -29,6 +45,7 @@ public final class IOUtil {
         if (null == file || !file.exists() || !file.canRead() || file.isDirectory()) {
             throw new IllegalArgumentException("file not exists, or is a directory.");
         }
+
         return getDataFromFileByBuffer(new FileInputStream(file), handler, bufSize);
     }
 
@@ -44,7 +61,7 @@ public final class IOUtil {
         try {
             while (-1 != fileInputStream.read(buf)) {
                 if (null != handler) {
-                    t = handler.execute(buf);
+                    handler.execute((T) buf, null);
                 }
             }
         } catch (IOException e) {
@@ -92,7 +109,7 @@ public final class IOUtil {
             String tmp;
             while (null != (tmp = reader.readLine())) {
                 if (null != handler) {
-                    t = handler.execute(tmp, null);
+                    handler.execute((T) tmp, null);
                 }
             }
         } catch (IOException e) {
