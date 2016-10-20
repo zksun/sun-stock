@@ -1,7 +1,10 @@
-package com.sun.stock.core.common.internal;
+package com.sun.stock.core.algorithm;
 
 
 import com.sun.stock.core.common.IOHandler;
+import com.sun.stock.core.common.internal.PlatformSupport;
+import com.sun.stock.core.common.internal.StringUtil;
+import com.sun.stock.core.common.internal.SystemUtil;
 
 import java.io.BufferedInputStream;
 import java.io.BufferedReader;
@@ -41,27 +44,26 @@ public final class IOUtil {
         return new FileInputStream(file);
     }
 
-    public static <T> T getDataFromFileByBuffer(File file, IOHandler<T, byte[]> handler, int bufSize) throws FileNotFoundException {
+    public static <C extends AlgorithmContext> void executeDataFromFileByBuffer(File file, IOHandler<byte[], C> handler, int bufSize) throws FileNotFoundException {
         if (null == file || !file.exists() || !file.canRead() || file.isDirectory()) {
             throw new IllegalArgumentException("file not exists, or is a directory.");
         }
 
-        return getDataFromFileByBuffer(new FileInputStream(file), handler, bufSize);
+        executeDataFromFileByBuffer(new FileInputStream(file), handler, bufSize);
     }
 
-    public static <T> T getDataFromFileByBuffer(String path, IOHandler<T, byte[]> handler, int bufSize) throws FileNotFoundException {
+    public static <C extends AlgorithmContext> void executeDataFromFileByBuffer(String path, IOHandler<byte[], C> handler, int bufSize) throws FileNotFoundException {
         InputStream fileInputStream = getFileInputStream(path);
 
-        return getDataFromFileByBuffer(fileInputStream, handler, bufSize);
+        executeDataFromFileByBuffer(fileInputStream, handler, bufSize);
     }
 
-    private static <T> T getDataFromFileByBuffer(InputStream fileInputStream, IOHandler<T, byte[]> handler, int bufSize) throws FileNotFoundException {
+    private static <C extends AlgorithmContext> void executeDataFromFileByBuffer(InputStream fileInputStream, IOHandler<byte[], C> handler, int bufSize) throws FileNotFoundException {
         byte[] buf = new byte[bufSize];
-        T t = null;
         try {
             while (-1 != fileInputStream.read(buf)) {
                 if (null != handler) {
-                    handler.execute((T) buf, null);
+                    handler.execute(buf, null);
                 }
             }
         } catch (IOException e) {
@@ -75,7 +77,6 @@ public final class IOUtil {
                 }
             }
         }
-        return t;
     }
 
     public static <T> T getFileByLine(String path, IOHandler<T, String> handler) {
