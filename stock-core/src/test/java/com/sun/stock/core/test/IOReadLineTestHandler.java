@@ -7,7 +7,7 @@ import com.sun.stock.core.algorithm.AlgorithmContext;
 /**
  * Created by zksun on 16-2-10.
  */
-public class IOReadLineTestHandler extends AbstractAlgorithmHandler<AlgorithmContext,String,byte[]> {
+public class IOReadLineTestHandler extends AbstractAlgorithmHandler<AlgorithmContext,String, byte[]> {
 
     @Override
     protected Algorithm selectAlgorithm() {
