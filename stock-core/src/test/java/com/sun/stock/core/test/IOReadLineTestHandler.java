@@ -7,7 +7,7 @@ import com.sun.stock.core.algorithm.AlgorithmContext;
 /**
  * Created by zksun on 16-2-10.
  */
-public class IOReadLineTestHandler extends AbstractAlgorithmHandler<AlgorithmContext,String, byte[]> {
+public class IOReadLineTestHandler extends AbstractAlgorithmHandler<AlgorithmContext, byte[], String> {
 
     @Override
     protected Algorithm selectAlgorithm() {
@@ -15,8 +15,8 @@ public class IOReadLineTestHandler extends AbstractAlgorithmHandler<AlgorithmCon
     }
 
     @Override
-    protected byte[] createAlgorithmMessage(String value) {
-        return new byte[0];
+    protected String createAlgorithmMessage(byte[] value) {
+        return null;
     }
 
     @Override
@@ -30,7 +30,7 @@ public class IOReadLineTestHandler extends AbstractAlgorithmHandler<AlgorithmCon
     }
 
     @Override
-    public void algorithm(AlgorithmContext context, byte[] message) {
+    public void algorithm(AlgorithmContext context, String message) {
 
     }
 }
