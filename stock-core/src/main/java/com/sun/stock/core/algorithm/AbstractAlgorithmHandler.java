@@ -1,6 +1,6 @@
 package com.sun.stock.core.algorithm;
 
-import com.sun.stock.core.common.IOHandler;
+import com.sun.stock.core.algorithm.util.IOHandler;
 
 /**
  * Created by zksun on 16-2-13.

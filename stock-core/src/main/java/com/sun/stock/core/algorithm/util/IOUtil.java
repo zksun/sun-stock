@@ -1,7 +1,7 @@
-package com.sun.stock.core.algorithm;
+package com.sun.stock.core.algorithm.util;
 
 
-import com.sun.stock.core.common.IOHandler;
+import com.sun.stock.core.algorithm.AlgorithmContext;
 import com.sun.stock.core.common.internal.PlatformSupport;
 import com.sun.stock.core.common.internal.StringUtil;
 import com.sun.stock.core.common.internal.SystemUtil;

@@ -1,7 +1,7 @@
 package com.sun.stock.core.test;
 
 import com.sun.stock.core.algorithm.AlgorithmContext;
-import com.sun.stock.core.common.IOHandler;
+import com.sun.stock.core.algorithm.util.IOHandler;
 import com.sun.stock.core.domain.StockTradeDetail;
 import com.sun.stock.core.domain.information.ExcludeRights;
 import com.sun.stock.core.informations.http.sohu.SohuInfoExplorer;
