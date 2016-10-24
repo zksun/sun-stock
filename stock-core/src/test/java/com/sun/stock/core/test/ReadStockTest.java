@@ -64,7 +64,8 @@ public class ReadStockTest {
             if (CollectionUtils.isNotEmpty(realDirectories)) {
                 for (String real : realDirectories) {
                     String[] stockCode = StockUtil.getStockCode(real);
-                    System.out.println(stockCode[0] + "-" + stockCode[1]);
+                    List<File> stockDataFiles = StockUtil.getAllStockDataFiles(StockType.getTypeByDesc(stockCode[0]), stockCode[1]);
+                    System.out.println(stockDataFiles);
                 }
             }
 
