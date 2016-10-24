@@ -11,6 +11,7 @@ import org.junit.Test;
 
 import java.io.File;
 import java.text.ParseException;
+import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
@@ -53,6 +54,21 @@ public class ReadStockTest {
     @Test
     public void testGetStockDataFiles() {
         List<String> allStockDirectoryNames = StockUtil.getAllStockDirectoryNames(Environment.STOCK_ROOT_PATH);
+        if (CollectionUtils.isNotEmpty(allStockDirectoryNames)) {
+            List<String> realDirectories = new ArrayList<>();
+            for (String stockName : allStockDirectoryNames) {
+                if (StockUtil.isStockDirectoryName(stockName)) {
+                    realDirectories.add(stockName);
+                }
+            }
+            if (CollectionUtils.isNotEmpty(realDirectories)) {
+                for (String real : realDirectories) {
+                    String[] stockCode = StockUtil.getStockCode(real);
+                    System.out.println(stockCode[0] + "-" + stockCode[1]);
+                }
+            }
+
+        }
     }
 
 //    @Test
