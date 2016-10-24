@@ -43,11 +43,16 @@ public class ReadStockTest {
     @Test
     public void testGetStockDataFile() {
         try {
-            File stockDataFile = StockUtil.getStockDataFile(StockType.SHANGHAI, "601186", "20140102", Environment.STOCK_ROOT_PATH);
+            File stockDataFile = StockUtil.getStockDataFile(StockType.SHANGHAI, "601186", "20160104", Environment.STOCK_ROOT_PATH);
             Assert.assertTrue(stockDataFile.exists());
         } catch (ParseException e) {
             e.printStackTrace();
         }
+    }
+
+    @Test
+    public void testGetStockDataFiles() {
+        List<String> allStockDirectoryNames = StockUtil.getAllStockDirectoryNames(Environment.STOCK_ROOT_PATH);
     }
 
 //    @Test
