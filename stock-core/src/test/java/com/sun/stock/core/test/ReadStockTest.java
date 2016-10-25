@@ -10,6 +10,7 @@ import org.junit.Assert;
 import org.junit.Test;
 
 import java.io.File;
+import java.io.FileNotFoundException;
 import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.Collections;
@@ -65,7 +66,15 @@ public class ReadStockTest {
                 for (String real : realDirectories) {
                     String[] stockCode = StockUtil.getStockCode(real);
                     List<File> stockDataFiles = StockUtil.getAllStockDataFiles(StockType.getTypeByDesc(stockCode[0]), stockCode[1]);
-                    System.out.println(stockDataFiles);
+                    if (CollectionUtils.isNotEmpty(stockDataFiles)) {
+                        for (File file : stockDataFiles) {
+                            try {
+                                IOUtil.executeDataFromFileByBuffer(file,new IOReadLineTestHandler(),16);
+                            } catch (FileNotFoundException e) {
+                                e.printStackTrace();
+                            }
+                        }
+                    }
                 }
             }
 

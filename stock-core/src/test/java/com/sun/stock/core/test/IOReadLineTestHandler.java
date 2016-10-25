@@ -11,17 +11,17 @@ public class IOReadLineTestHandler extends AbstractAlgorithmHandler<AlgorithmCon
 
     @Override
     protected Algorithm selectAlgorithm() {
-        return null;
+        return this;
     }
 
     @Override
     protected String createAlgorithmMessage(byte[] value) {
-        return null;
+        return "";
     }
 
     @Override
     public Algorithm parent() {
-        return null;
+        return this;
     }
 
     @Override
@@ -33,4 +33,5 @@ public class IOReadLineTestHandler extends AbstractAlgorithmHandler<AlgorithmCon
     public void algorithm(AlgorithmContext context, String message) {
 
     }
+
 }
