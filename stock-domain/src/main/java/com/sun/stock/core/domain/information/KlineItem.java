@@ -7,27 +7,16 @@ import java.util.Date;
  * Created by zksun on 16-2-14.
  */
 public class KlineItem implements Comparable<KlineItem>, Serializable {
-	//���̼�
 	private Long openPrice;
-	//���̼�
 	private Long closePrice;
-	//��߼�
 	private Long highPrice;
-	//��ͼ�
 	private Long lowPrice;
-	//�ɽ�����
 	private Long tradedVolume;
-	//�ɽ���
 	private Long tradedAmount;
-	//������
 	private Double handRate;
-	//�ǵ�
 	private Long upDown;
-	//�ǵ���
 	private Double upDownRatio;
-	//ʱ������
 	private Date date;
-	//��Ʊ����
 	private String stockCode;
 
 	public KlineItem(String stockCode) {
