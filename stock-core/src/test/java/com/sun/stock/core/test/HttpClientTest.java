@@ -20,6 +20,8 @@ import java.util.List;
  */
 public class HttpClientTest {
 
+
+
 	@Test
 	public void getHttpResponse() {
 		try {

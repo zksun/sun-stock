@@ -1,4 +1,4 @@
-package com.sun.stock.core.algorithm.util;
+package com.sun.stock.core.algorithm.utils;
 
 
 import com.sun.stock.core.algorithm.AlgorithmContext;

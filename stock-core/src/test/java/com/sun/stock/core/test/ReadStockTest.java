@@ -1,6 +1,6 @@
 package com.sun.stock.core.test;
 
-import com.sun.stock.core.algorithm.util.IOUtil;
+import com.sun.stock.core.algorithm.utils.IOUtil;
 import com.sun.stock.core.domain.StockTradeDetail;
 import com.sun.stock.core.domain.enums.StockType;
 import com.sun.stock.core.system.Environment;

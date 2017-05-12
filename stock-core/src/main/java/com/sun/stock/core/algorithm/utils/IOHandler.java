@@ -1,4 +1,4 @@
-package com.sun.stock.core.algorithm.util;
+package com.sun.stock.core.algorithm.utils;
 
 /**
  * Created by zksun on 16-2-10.
