@@ -9,7 +9,7 @@ import java.io.File;
  */
 public final class FileUtils {
 
-    static String getDirectoryName(byte type, int code) {
+    public static String getDirectoryName(byte type, int code) {
         String market = "";
         switch ((int) type) {
             case 0:
@@ -24,7 +24,7 @@ public final class FileUtils {
         return market + code;
     }
 
-    static String createDirectory(String path, String name) {
+    public static String createDirectory(String path, String name) {
         String temp = path + File.separator + name;
         File directory = new File(temp);
         if (directory.exists() && directory.isDirectory()) {
@@ -34,7 +34,7 @@ public final class FileUtils {
         return temp;
     }
 
-    static File filePath(String directory, Long time) {
+    public static File filePath(String directory, Long time) {
         return new File(directory + File.separator + DateUtils.getLocalDateYYYYMMDD(time) + ".txt");
     }
 }

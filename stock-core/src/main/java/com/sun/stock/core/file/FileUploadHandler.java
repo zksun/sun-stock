@@ -1,12 +1,12 @@
 package com.sun.stock.core.file;
 
+import com.sun.stock.core.file.util.FileUtils;
 import io.netty.channel.ChannelHandlerContext;
 import io.netty.channel.SimpleChannelInboundHandler;
 
 import java.io.File;
 import java.io.RandomAccessFile;
 
-import static com.sun.stock.core.test.file.FileUtils.*;
 
 /**
  * Created by zksun on 2017/8/19.

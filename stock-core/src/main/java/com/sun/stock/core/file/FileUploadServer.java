@@ -32,6 +32,7 @@ public class FileUploadServer {
         });
         try {
             ChannelFuture channelFuture = serverBootstrap.bind(port).sync();
+            System.out.println("server started at port: " + port + " and path: " + path);
             channelFuture.channel().closeFuture().sync();
         } catch (Exception e) {
             e.printStackTrace();
@@ -42,6 +43,6 @@ public class FileUploadServer {
     }
 
     public static void main(String[] args) {
-        new FileUploadServer().bind(3128,"/Users/hanshou/Documents/stocks");
+        new FileUploadServer().bind(Integer.valueOf(args[0]), args[1]);
     }
 }
