@@ -47,8 +47,11 @@
             <artifactId>gson</artifactId>
         </dependency>
 
-
-
+        <dependency>
+            <groupId>io.grpc</groupId>
+            <artifactId>grpc-all</artifactId>
+            <version>1.5.0</version>
+        </dependency>
 
     </dependencies>
 </project>
