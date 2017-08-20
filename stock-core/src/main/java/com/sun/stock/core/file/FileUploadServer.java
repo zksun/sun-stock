@@ -32,7 +32,6 @@ public class FileUploadServer {
         });
         try {
             ChannelFuture channelFuture = serverBootstrap.bind(port).sync();
-            System.out.println("server started at port: " + port + " and path: " + path);
             channelFuture.channel().closeFuture().sync();
         } catch (Exception e) {
             e.printStackTrace();
