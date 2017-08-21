@@ -1,5 +1,7 @@
 package com.sun.stock.core.file;
 
+import com.sun.stock.core.common.logging.Logger;
+import com.sun.stock.core.common.logging.LoggerFactory;
 import com.sun.stock.core.file.util.FileUtils;
 import io.netty.channel.ChannelHandlerContext;
 import io.netty.channel.SimpleChannelInboundHandler;
@@ -12,6 +14,8 @@ import java.io.RandomAccessFile;
  * Created by zksun on 2017/8/19.
  */
 public class FileUploadHandler extends SimpleChannelInboundHandler<FileDO> {
+
+    private final static Logger logger = LoggerFactory.getLogger(FileUploadHandler.class.getName());
 
     private final String path;
 
@@ -43,6 +47,11 @@ public class FileUploadHandler extends SimpleChannelInboundHandler<FileDO> {
                 randomAccessFile.close();
             }
         }
+    }
 
+    @Override
+    public void exceptionCaught(ChannelHandlerContext ctx, Throwable cause) throws Exception {
+        super.exceptionCaught(ctx, cause);
+        logger.error("upload file failure cause: " + cause);
     }
 }
