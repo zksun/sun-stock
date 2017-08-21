@@ -25,9 +25,9 @@ public class ServerDecoder extends LengthFieldBasedFrameDecoder {
         }
 
         byte type = in.readByte();
-        int code = in.readInt();
-        long time = in.readLong();
-        int length = in.readInt();
+        int code = in.readIntLE();
+        long time = in.readLongLE();
+        int length = in.readIntLE();
 
         if (in.readableBytes() < length) {
             throw new RuntimeException("data low than the protocol length ");
