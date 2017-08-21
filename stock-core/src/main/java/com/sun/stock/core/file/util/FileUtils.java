@@ -1,7 +1,5 @@
 package com.sun.stock.core.file.util;
 
-import com.sun.stock.core.common.util.DateUtils;
-
 import java.io.File;
 
 /**
@@ -35,6 +33,6 @@ public final class FileUtils {
     }
 
     public static File filePath(String directory, Long time) {
-        return new File(directory + File.separator + DateUtils.getLocalDateYYYYMMDD(time) + ".txt");
+        return new File(directory + File.separator + time + ".txt");
     }
 }
