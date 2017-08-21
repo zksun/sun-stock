@@ -12,9 +12,9 @@ public class ClientEncoder extends MessageToByteEncoder<FileDO> {
     @Override
     protected void encode(ChannelHandlerContext ctx, FileDO msg, ByteBuf out) throws Exception {
         out.writeByte(msg.getType());
-        out.writeInt(msg.getCode());
-        out.writeLong(msg.getTime());
-        out.writeInt(msg.getLength());
+        out.writeIntLE(msg.getCode());
+        out.writeLongLE(msg.getTime());
+        out.writeIntLE(msg.getLength());
         out.writeBytes(msg.getDocument());
         return;
     }

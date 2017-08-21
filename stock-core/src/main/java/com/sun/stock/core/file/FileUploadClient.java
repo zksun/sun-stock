@@ -41,8 +41,8 @@ public class FileUploadClient {
     public static void main(String[] args) {
         final Channel channel;
         FileUploadClient client = new FileUploadClient();
-        //SocketAddress socketAddress = new InetSocketAddress("218.244.139.178", 3128);
-        SocketAddress socketAddress = new InetSocketAddress("127.0.0.1", 3128);
+        SocketAddress socketAddress = new InetSocketAddress("218.244.139.178", 3128);
+        //SocketAddress socketAddress = new InetSocketAddress("127.0.0.1", 3128);
         channel = client.connect(socketAddress);
         FileDO fileDO = new FileDO();
         fileDO.setTime(20170821L);
