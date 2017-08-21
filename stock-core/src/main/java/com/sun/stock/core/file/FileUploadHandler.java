@@ -22,6 +22,7 @@ public class FileUploadHandler extends SimpleChannelInboundHandler<FileDO> {
     @Override
     protected void channelRead0(ChannelHandlerContext ctx, FileDO msg) throws Exception {
         if (null == msg) {
+            ctx.channel().writeAndFlush("failure");
             throw new RuntimeException("decode no fileDO");
         }
 
@@ -34,6 +35,9 @@ public class FileUploadHandler extends SimpleChannelInboundHandler<FileDO> {
             randomAccessFile = new RandomAccessFile(file, "rw");
             randomAccessFile.seek(0);
             randomAccessFile.write(msg.getDocument());
+            ctx.channel().writeAndFlush("success");
+        } catch (Throwable throwable) {
+            ctx.channel().writeAndFlush("failure");
         } finally {
             if (null != randomAccessFile) {
                 randomAccessFile.close();
