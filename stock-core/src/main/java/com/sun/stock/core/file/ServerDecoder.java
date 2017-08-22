@@ -38,9 +38,8 @@ public class ServerDecoder extends LengthFieldBasedFrameDecoder {
         fileDO.setCode(code);
         fileDO.setTime(time);
         fileDO.setLength(length);
-        ByteBuf byteBuf = in.readBytes(length);
-        byte[] buf = new byte[byteBuf.readableBytes()];
-        byteBuf.readBytes(buf);
+        byte[] buf = new byte[length];
+        in.readBytes(buf);
         fileDO.setDocument(buf);
         return fileDO;
     }

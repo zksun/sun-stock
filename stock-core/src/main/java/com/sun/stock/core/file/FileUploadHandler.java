@@ -47,9 +47,6 @@ public class FileUploadHandler extends SimpleChannelInboundHandler<FileDO> {
             if (null != randomAccessFile) {
                 randomAccessFile.close();
             }
-            if (null != msg) {
-                ReferenceCountUtil.release(msg);
-            }
         }
     }
 
