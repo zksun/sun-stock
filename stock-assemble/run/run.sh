@@ -13,4 +13,4 @@ export CLASSPATH
 #echo JAVA_HOME=$JAVA_HOME
 #echo CLASSPATH=$CLASSPATH
 #java -version
-java -Xmx768M -Xms768M -Xmn512M  -Xbootclasspath/a:$CLASSPATH -jar  $1 $2 $3 >std.log 2>&1 &
+java -Xmx768M -Xms768M -Xmn512M -XX:MaxDirectMemorySize=1g -Xbootclasspath/a:$CLASSPATH -jar  $1 $2 $3 >std.log 2>&1 &
