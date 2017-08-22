@@ -5,6 +5,7 @@ import com.sun.stock.core.common.logging.LoggerFactory;
 import com.sun.stock.core.file.util.FileUtils;
 import io.netty.channel.ChannelHandlerContext;
 import io.netty.channel.SimpleChannelInboundHandler;
+import io.netty.util.ReferenceCountUtil;
 
 import java.io.File;
 import java.io.RandomAccessFile;
@@ -45,6 +46,9 @@ public class FileUploadHandler extends SimpleChannelInboundHandler<FileDO> {
         } finally {
             if (null != randomAccessFile) {
                 randomAccessFile.close();
+            }
+            if (null != msg) {
+                ReferenceCountUtil.release(msg);
             }
         }
     }
