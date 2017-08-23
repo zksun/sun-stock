@@ -22,10 +22,11 @@ public final class FileUtils {
         return market + getRealCode(code);
     }
 
-    private static String getRealCode(int code) {
+    public static String getRealCode(int code) {
         String codeString = String.valueOf(code);
+        int length = codeString.length();
         if (codeString.length() < 6) {
-            for (int i = 0; i < 6 - codeString.length(); i++) {
+            for (int i = 0; i < 6 - length; i++) {
                 codeString = '0' + codeString;
             }
         }
@@ -46,5 +47,7 @@ public final class FileUtils {
         return new File(directory + File.separator + time + ".txt");
     }
 
-
+    public static void main(String[] args) {
+        System.out.println(getDirectoryName((byte) 1, 100));
+    }
 }
