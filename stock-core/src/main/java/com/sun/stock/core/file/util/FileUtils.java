@@ -19,7 +19,17 @@ public final class FileUtils {
             default:
                 throw new IllegalArgumentException("wrong type");
         }
-        return market + code;
+        return market + getRealCode(code);
+    }
+
+    private static String getRealCode(int code) {
+        String codeString = String.valueOf(code);
+        if (codeString.length() < 6) {
+            for (int i = 0; i < 6 - codeString.length(); i++) {
+                codeString = '0' + codeString;
+            }
+        }
+        return codeString;
     }
 
     public static String createDirectory(String path, String name) {
@@ -35,4 +45,6 @@ public final class FileUtils {
     public static File filePath(String directory, Long time) {
         return new File(directory + File.separator + time + ".txt");
     }
+
+
 }
