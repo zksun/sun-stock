@@ -54,5 +54,6 @@ public class FileUploadHandler extends SimpleChannelInboundHandler<FileDO> {
     public void exceptionCaught(ChannelHandlerContext ctx, Throwable cause) throws Exception {
         super.exceptionCaught(ctx, cause);
         logger.error("upload file failure cause: " + cause);
+        ctx.channel().close();
     }
 }
