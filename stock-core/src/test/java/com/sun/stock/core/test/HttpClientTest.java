@@ -49,14 +49,14 @@ public class HttpClientTest {
 
 	@Test
 	public void getStockTradedDetail() {
-		List<KlineItem> klineInfo = SohuInfoExplorer.getInstance().getKlineInfo("000651", Timer.DAY, true, "20140228", -1);
+		List<KlineItem> klineInfo = SohuInfoExplorer.getInstance().getKlineInfo("000651", Timer.DAY, true, "20140228", -21);
 		System.out.println("OK");
 	}
 
 	@Test
 	public void getStockExcludeRightPrice() {
 		List<ExcludeRights> excludeRightses = SohuInfoExplorer.getInstance().
-				getExcludeRightsInfo("000651", Timer.DAY);
+				getExcludeRightsInfo("000776", Timer.DAY);
 
 		Long aLong = StockAlgorithmUtil.exchangeAdjustStockPrice(excludeRightses, 2530L, "20150703");
 		System.out.println(aLong);

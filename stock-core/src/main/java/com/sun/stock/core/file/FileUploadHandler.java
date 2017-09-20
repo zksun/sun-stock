@@ -5,7 +5,6 @@ import com.sun.stock.core.common.logging.LoggerFactory;
 import com.sun.stock.core.file.util.FileUtils;
 import io.netty.channel.ChannelHandlerContext;
 import io.netty.channel.SimpleChannelInboundHandler;
-import io.netty.util.ReferenceCountUtil;
 
 import java.io.File;
 import java.io.RandomAccessFile;
@@ -43,6 +42,7 @@ public class FileUploadHandler extends SimpleChannelInboundHandler<FileDO> {
             ctx.channel().writeAndFlush("success");
         } catch (Throwable throwable) {
             ctx.channel().writeAndFlush("failure");
+            logger.error("store file failure with file:{}", throwable, file.getName());
         } finally {
             if (null != randomAccessFile) {
                 randomAccessFile.close();
