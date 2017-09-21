@@ -49,7 +49,7 @@ public class HttpClientTest {
 
 	@Test
 	public void getStockTradedDetail() {
-		List<KlineItem> klineInfo = SohuInfoExplorer.getInstance().getKlineInfo("000651", Timer.DAY, true, "20140228", -21);
+		List<KlineItem> klineInfo = SohuInfoExplorer.getInstance().getKlineInfo("000651", Timer.DAY, true, "20170919", -21);
 		System.out.println("OK");
 	}
 

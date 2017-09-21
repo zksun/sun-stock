@@ -66,8 +66,6 @@ public class ExcludeRightsWrapper {
 
 		long adjustPrice = tradePrice;
 
-		//System.out.println("get cur price is: " + tradePrice + " day is: " + tradeDate.toString());
-
 		for (ExcludeRights r : rights) {
 			adjustPrice = exchangeAdjustStockPrice(adjustPrice, r);
 		}
