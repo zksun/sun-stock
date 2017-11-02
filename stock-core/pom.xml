@@ -41,7 +41,10 @@
             <groupId>com.google.code.gson</groupId>
             <artifactId>gson</artifactId>
         </dependency>
-
+        <dependency>
+            <groupId>com.sun.stock</groupId>
+            <artifactId>stock-domain</artifactId>
+        </dependency>
 
     </dependencies>
 </project>
