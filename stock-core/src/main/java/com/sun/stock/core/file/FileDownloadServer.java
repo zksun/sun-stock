@@ -18,6 +18,12 @@ public class FileDownloadServer {
 
     private final static Logger logger = LoggerFactory.getLogger(FileDownloadServer.class.getName());
 
+    private final int MAX_FRAME_LENGTH = 1024 * 1024;
+    private final int LENGTH_FILE_LENGTH = 4;
+    private final int LENGTH_FILE_OFFSET = 13;
+    private final int LENGTH_ADJUSTMENT = 0;
+    private final int INITIAL_BYTES_TO_STRIP = 0;
+
     public void bind(int port, String path) {
         final EventLoopGroup bossGroup = new NioEventLoopGroup(1);
         EventLoopGroup workerGroup = new NioEventLoopGroup();
@@ -32,6 +38,7 @@ public class FileDownloadServer {
                     @Override
                     protected void initChannel(Channel ch) throws Exception {
                         ch.pipeline().addLast(new StringEncoder(Charset.forName("UTF-8")))
+                                .addLast(new FileDecoder(MAX_FRAME_LENGTH, LENGTH_FILE_OFFSET, LENGTH_FILE_LENGTH, LENGTH_ADJUSTMENT, INITIAL_BYTES_TO_STRIP, false))
                                 .addLast(new FileDownloadHandler(path));
                     }
                 });
