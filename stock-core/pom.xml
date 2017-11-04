@@ -60,9 +60,9 @@
         </dependency>
 
         <!--<dependency>-->
-            <!--<groupId>com.alibaba.geabase</groupId>-->
-            <!--<artifactId>myqueue-java-core</artifactId>-->
-            <!--<version>1.0.0-SNAPSHOT</version>-->
+        <!--<groupId>com.alibaba.geabase</groupId>-->
+        <!--<artifactId>myqueue-java-core</artifactId>-->
+        <!--<version>1.0.0-SNAPSHOT</version>-->
         <!--</dependency>-->
 
         <dependency>
@@ -104,7 +104,8 @@
                 <configuration>
                     <archive>
                         <manifest>
-                            <mainClass>com.sun.stock.core.file.FileUploadServer</mainClass>
+                            <!--<mainClass>com.sun.stock.core.file.FileUploadServer</mainClass>-->
+                            <mainClass>com.sun.stock.core.file.FileDownloadServer</mainClass>
                         </manifest>
                     </archive>
                 </configuration>

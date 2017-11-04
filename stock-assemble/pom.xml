@@ -19,6 +19,22 @@
         </dependency>
     </dependencies>
 
+    <!--<build>-->
+    <!--<plugins>-->
+    <!--<plugin>-->
+    <!--<groupId>org.apache.maven.plugins</groupId>-->
+    <!--<artifactId>maven-assembly-plugin</artifactId>-->
+    <!--<version>2.4.1</version>-->
+    <!--<configuration>-->
+    <!--<finalName>file-upload</finalName>-->
+    <!--<descriptors> &lt;!&ndash;描述文件路径&ndash;&gt;-->
+    <!--<descriptor>src/main/assembly/assembly.xml</descriptor>-->
+    <!--</descriptors>-->
+    <!--</configuration>-->
+    <!--</plugin>-->
+    <!--</plugins>-->
+    <!--</build>-->
+
     <build>
         <plugins>
             <plugin>
@@ -26,7 +42,7 @@
                 <artifactId>maven-assembly-plugin</artifactId>
                 <version>2.4.1</version>
                 <configuration>
-                    <finalName>file-upload</finalName>
+                    <finalName>file-download</finalName>
                     <descriptors> <!--描述文件路径-->
                         <descriptor>src/main/assembly/assembly.xml</descriptor>
                     </descriptors>
