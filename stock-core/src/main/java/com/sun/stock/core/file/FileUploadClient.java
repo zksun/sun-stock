@@ -29,7 +29,7 @@ public class FileUploadClient {
                 .handler(new ChannelInitializer<Channel>() {
                     @Override
                     protected void initChannel(Channel ch) throws Exception {
-                        ch.pipeline().addLast(new ClientEncoder());
+                        ch.pipeline().addLast(new ClientUploadEncoder());
                         ch.pipeline().addLast(new StringDecoder(Charset.forName("UTF-8")));
                         ch.pipeline().addLast(new ClientCallbackHandler());
                     }

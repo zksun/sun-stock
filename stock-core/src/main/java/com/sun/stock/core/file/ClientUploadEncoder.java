@@ -7,7 +7,7 @@ import io.netty.handler.codec.MessageToByteEncoder;
 /**
  * Created by zksun on 2017/8/19.
  */
-public class ClientEncoder extends MessageToByteEncoder<FileDO> {
+public class ClientUploadEncoder extends MessageToByteEncoder<FileDO> {
 
     @Override
     protected void encode(ChannelHandlerContext ctx, FileDO msg, ByteBuf out) throws Exception {
