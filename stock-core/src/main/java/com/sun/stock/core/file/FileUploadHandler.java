@@ -30,6 +30,10 @@ public class FileUploadHandler extends SimpleChannelInboundHandler<FileDO> {
             throw new RuntimeException("decode no fileDO");
         }
 
+        if (msg.getType() != 0) {
+            ctx.fireChannelRead(msg);
+        }
+
         String directoryName = FileUtils.getDirectoryName(msg.getType(), msg.getCode());
         String directory = FileUtils.createDirectory(path, directoryName);
         File file = FileUtils.filePath(directory, msg.getTime());
