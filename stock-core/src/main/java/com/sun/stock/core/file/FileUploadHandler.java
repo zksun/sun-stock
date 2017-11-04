@@ -30,28 +30,23 @@ public class FileUploadHandler extends SimpleChannelInboundHandler<FileDO> {
             throw new RuntimeException("decode no fileDO");
         }
 
-        if (msg.getType() != 0) {
-            ctx.fireChannelRead(msg);
-            return;
-        }
-
         String directoryName = FileUtils.getDirectoryName(msg.getType(), msg.getCode());
         String directory = FileUtils.createDirectory(path, directoryName);
         File file = FileUtils.filePath(directory, msg.getTime());
 
         RandomAccessFile randomAccessFile = null;
-            try {
-                randomAccessFile = new RandomAccessFile(file, "rw");
-                randomAccessFile.seek(0);
-                randomAccessFile.write(msg.getDocument());
-                ctx.channel().writeAndFlush("success");
-            } catch (Throwable throwable) {
-                ctx.channel().writeAndFlush("failure");
-                logger.error("store file failure with file:{}", throwable, file.getName());
-            } finally {
-                if (null != randomAccessFile) {
-                    randomAccessFile.close();
-                }
+        try {
+            randomAccessFile = new RandomAccessFile(file, "rw");
+            randomAccessFile.seek(0);
+            randomAccessFile.write(msg.getDocument());
+            ctx.channel().writeAndFlush("success");
+        } catch (Throwable throwable) {
+            ctx.channel().writeAndFlush("failure");
+            logger.error("store file failure with file:{}", throwable, file.getName());
+        } finally {
+            if (null != randomAccessFile) {
+                randomAccessFile.close();
+            }
         }
     }
 

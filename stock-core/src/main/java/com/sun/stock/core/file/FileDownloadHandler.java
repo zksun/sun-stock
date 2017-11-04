@@ -28,11 +28,6 @@ public class FileDownloadHandler extends SimpleChannelInboundHandler<FileDO> {
             throw new RuntimeException("decode no fileDO");
         }
 
-        if (msg.getType() != 1) {
-            ctx.fireChannelRead(msg);
-            return;
-        }
-
         String directoryName = FileUtils.getDirectoryName(msg.getType(), msg.getCode());
         String directory = FileUtils.createDirectory(path, directoryName);
         File file = FileUtils.filePath(directory, msg.getTime());
@@ -45,7 +40,9 @@ public class FileDownloadHandler extends SimpleChannelInboundHandler<FileDO> {
                 bufferedInputStream.read(fileBytes = new byte[available]);
                 if (null != fileBytes || fileBytes.length > 0) {
                     FileDO fileDO = new FileDO();
+                    fileDO.setType(msg.getType());
                     fileDO.setCode(msg.getCode());
+                    fileDO.setTime(msg.getTime());
                     fileDO.setLength(fileBytes.length);
                     fileDO.setDocument(fileBytes);
                     ctx.writeAndFlush(fileDO);

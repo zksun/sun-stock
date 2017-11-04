@@ -34,7 +34,7 @@ public class FileDownloadClient {
                     @Override
                     protected void initChannel(Channel ch) throws Exception {
                         ch.pipeline().addLast(new ClientDownLoadEncoder());
-                        ch.pipeline().addLast(new UploadFileDecoder(MAX_FRAME_LENGTH,
+                        ch.pipeline().addLast(new DownloadFileDecoder(MAX_FRAME_LENGTH,
                                 LENGTH_FILE_OFFSET,
                                 LENGTH_FILE_LENGTH,
                                 LENGTH_ADJUSTMENT,
@@ -59,7 +59,7 @@ public class FileDownloadClient {
         FileDO fileDO = new FileDO();
         fileDO.setTime(20170821L);
         fileDO.setCode(600352);
-        fileDO.setType((byte) 1);
+        fileDO.setType((byte) 0);
         fileDO.setLength(0);
 
         ChannelFuture channelFuture = channel.writeAndFlush(fileDO);

@@ -37,8 +37,8 @@ public class FileDownloadServer {
                 .childHandler(new ChannelInitializer<Channel>() {
                     @Override
                     protected void initChannel(Channel ch) throws Exception {
-                        ch.pipeline().addLast(new StringEncoder(Charset.forName("UTF-8")))
-                                .addLast(new UploadFileDecoder(MAX_FRAME_LENGTH, LENGTH_FILE_OFFSET, LENGTH_FILE_LENGTH, LENGTH_ADJUSTMENT, INITIAL_BYTES_TO_STRIP, false))
+                        ch.pipeline().addLast(new ClientUploadEncoder())
+                                .addLast(new DownloadFileDecoder(MAX_FRAME_LENGTH, LENGTH_FILE_OFFSET, LENGTH_FILE_LENGTH, LENGTH_ADJUSTMENT, INITIAL_BYTES_TO_STRIP, false))
                                 .addLast(new FileDownloadHandler(path));
                     }
                 });
