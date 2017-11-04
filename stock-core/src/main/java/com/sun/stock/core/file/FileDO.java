@@ -52,4 +52,6 @@ public class FileDO implements Serializable {
     public void setDocument(byte[] document) {
         this.document = document;
     }
+
+
 }

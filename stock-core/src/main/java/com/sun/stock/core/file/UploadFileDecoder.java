@@ -10,10 +10,10 @@ import java.nio.ByteOrder;
 /**
  * Created by zksun on 2017/8/19.
  */
-public class FileDecoder extends LengthFieldBasedFrameDecoder {
+public class UploadFileDecoder extends LengthFieldBasedFrameDecoder {
     private final static int HEAD_SIZE = 13 + 4;
 
-    public FileDecoder(int maxFrameLength, int lengthFieldOffset, int lengthFieldLength, int lengthAdjustment, int initialBytesToStrip, boolean failFast) {
+    public UploadFileDecoder(int maxFrameLength, int lengthFieldOffset, int lengthFieldLength, int lengthAdjustment, int initialBytesToStrip, boolean failFast) {
         super(ByteOrder.LITTLE_ENDIAN, maxFrameLength, lengthFieldOffset, lengthFieldLength, lengthAdjustment, initialBytesToStrip, failFast);
     }
 
