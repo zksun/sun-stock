@@ -6,7 +6,6 @@ import com.sun.stock.core.common.util.DateUtils;
 import com.sun.stock.core.file.FileDownloadClient;
 import com.sun.stock.core.util.StockUtil;
 import io.netty.channel.Channel;
-import io.netty.channel.socket.InternetProtocolFamily;
 
 import java.net.InetSocketAddress;
 import java.net.SocketAddress;
