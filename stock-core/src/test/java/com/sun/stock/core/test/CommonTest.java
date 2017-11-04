@@ -13,5 +13,8 @@ public class CommonTest {
         LocalDate localDate = LocalDate.now();
         System.out.println(localDate.getDayOfWeek().toString());
         System.out.println(localDate.getMonth().toString());
+
+        System.out.println(localDate.plusDays(1));
+
     }
 }
