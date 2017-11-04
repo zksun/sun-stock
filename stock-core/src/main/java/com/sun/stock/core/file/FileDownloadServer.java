@@ -7,9 +7,6 @@ import io.netty.buffer.PooledByteBufAllocator;
 import io.netty.channel.*;
 import io.netty.channel.nio.NioEventLoopGroup;
 import io.netty.channel.socket.nio.NioServerSocketChannel;
-import io.netty.handler.codec.string.StringEncoder;
-
-import java.nio.charset.Charset;
 
 /**
  * Created by zhikunsun on 2017/11/4.

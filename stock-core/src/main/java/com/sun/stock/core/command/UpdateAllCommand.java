@@ -62,7 +62,7 @@ public class UpdateAllCommand {
             FileDownloadClient fileDownloadClient = new FileDownloadClient();
             SocketAddress socketAddress = new InetSocketAddress("218.244.139.178", 65535);
             //SocketAddress socketAddress = new InetSocketAddress("127.0.0.1", 3128);
-            channel = fileDownloadClient.connect(socketAddress, "/Users/zhikunsun/Documents/stock_data");
+            channel = fileDownloadClient.connect(socketAddress, "/Users/zhikunsun/Documents/new_stock_data");
             try {
                 channel.closeFuture().sync();
                 System.out.println("channel closed");

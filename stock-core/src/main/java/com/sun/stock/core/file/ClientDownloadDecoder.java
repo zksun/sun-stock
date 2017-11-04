@@ -8,13 +8,13 @@ import io.netty.util.ReferenceCountUtil;
 import java.nio.ByteOrder;
 
 /**
- * Created by zhikunsun on 2017/11/5.
+ * Created by zhikunsun on 2017/11/4.
  */
-public class DownloadFileDecoder extends LengthFieldBasedFrameDecoder {
+public class ClientDownloadDecoder extends LengthFieldBasedFrameDecoder {
 
     private final static int HEAD_SIZE = 13 + 4;
 
-    public DownloadFileDecoder(int maxFrameLength, int lengthFieldOffset, int lengthFieldLength, int lengthAdjustment, int initialBytesToStrip, boolean failFast) {
+    public ClientDownloadDecoder(int maxFrameLength, int lengthFieldOffset, int lengthFieldLength, int lengthAdjustment, int initialBytesToStrip, boolean failFast) {
         super(ByteOrder.LITTLE_ENDIAN, maxFrameLength, lengthFieldOffset, lengthFieldLength, lengthAdjustment, initialBytesToStrip, failFast);
     }
 
@@ -41,6 +41,10 @@ public class DownloadFileDecoder extends LengthFieldBasedFrameDecoder {
             fileDO.setCode(code);
             fileDO.setTime(time);
             fileDO.setLength(length);
+            byte[] buf = new byte[length];
+            in.readBytes(buf);
+            fileDO.setDocument(buf);
+
             return fileDO;
         } finally {
             ReferenceCountUtil.release(in);

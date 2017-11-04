@@ -12,16 +12,11 @@ public class ClientUploadEncoder extends MessageToByteEncoder<FileDO> {
 
     @Override
     protected void encode(ChannelHandlerContext ctx, FileDO msg, ByteBuf out) throws Exception {
-        try {
-            out.writeByte(msg.getType());
-            out.writeIntLE(msg.getCode());
-            out.writeLongLE(msg.getTime());
-            out.writeIntLE(msg.getLength());
-            out.writeBytes(msg.getDocument());
-            return;
-        } finally {
-            ReferenceCountUtil.release(out);
-        }
-
+        out.writeByte(msg.getType());
+        out.writeIntLE(msg.getCode());
+        out.writeLongLE(msg.getTime());
+        out.writeIntLE(msg.getLength());
+        out.writeBytes(msg.getDocument());
+        return;
     }
 }

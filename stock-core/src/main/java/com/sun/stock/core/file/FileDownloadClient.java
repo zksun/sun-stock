@@ -31,7 +31,7 @@ public class FileDownloadClient {
                     @Override
                     protected void initChannel(Channel ch) throws Exception {
                         ch.pipeline().addLast(new ClientDownLoadEncoder());
-                        ch.pipeline().addLast(new DownloadFileDecoder(MAX_FRAME_LENGTH,
+                        ch.pipeline().addLast(new ClientDownloadDecoder(MAX_FRAME_LENGTH,
                                 LENGTH_FILE_OFFSET,
                                 LENGTH_FILE_LENGTH,
                                 LENGTH_ADJUSTMENT,

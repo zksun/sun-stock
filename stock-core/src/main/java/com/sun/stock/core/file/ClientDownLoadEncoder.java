@@ -11,14 +11,10 @@ import io.netty.util.ReferenceCountUtil;
 public class ClientDownLoadEncoder extends MessageToByteEncoder<FileDO> {
     @Override
     protected void encode(ChannelHandlerContext channelHandlerContext, FileDO msg, ByteBuf out) throws Exception {
-        try {
-            out.writeByte(msg.getType());
-            out.writeIntLE(msg.getCode());
-            out.writeLongLE(msg.getTime());
-            out.writeIntLE(msg.getLength());
-            return;
-        } finally {
-            ReferenceCountUtil.release(out);
-        }
+        out.writeByte(msg.getType());
+        out.writeIntLE(msg.getCode());
+        out.writeLongLE(msg.getTime());
+        out.writeIntLE(msg.getLength());
+        return;
     }
 }
