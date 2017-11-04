@@ -10,10 +10,10 @@ import java.nio.ByteOrder;
 /**
  * Created by zksun on 2017/8/19.
  */
-public class FileUploadServerDecoder extends LengthFieldBasedFrameDecoder {
+public class ServerDecoder extends LengthFieldBasedFrameDecoder {
     private final static int HEAD_SIZE = 13 + 4;
 
-    public FileUploadServerDecoder(int maxFrameLength, int lengthFieldOffset, int lengthFieldLength, int lengthAdjustment, int initialBytesToStrip, boolean failFast) {
+    public ServerDecoder(int maxFrameLength, int lengthFieldOffset, int lengthFieldLength, int lengthAdjustment, int initialBytesToStrip, boolean failFast) {
         super(ByteOrder.LITTLE_ENDIAN, maxFrameLength, lengthFieldOffset, lengthFieldLength, lengthAdjustment, initialBytesToStrip, failFast);
     }
 
@@ -39,10 +39,12 @@ public class FileUploadServerDecoder extends LengthFieldBasedFrameDecoder {
             fileDO.setType(type);
             fileDO.setCode(code);
             fileDO.setTime(time);
-            fileDO.setLength(length);
-            byte[] buf = new byte[length];
-            in.readBytes(buf);
-            fileDO.setDocument(buf);
+            if (type == 0) {
+                fileDO.setLength(length);
+                byte[] buf = new byte[length];
+                in.readBytes(buf);
+                fileDO.setDocument(buf);
+            }
 
             return fileDO;
         } finally {
