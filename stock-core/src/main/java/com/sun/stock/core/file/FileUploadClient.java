@@ -1,5 +1,7 @@
 package com.sun.stock.core.file;
 
+import com.sun.stock.core.common.logging.Logger;
+import com.sun.stock.core.common.logging.LoggerFactory;
 import io.netty.bootstrap.Bootstrap;
 import io.netty.channel.*;
 import io.netty.channel.nio.NioEventLoopGroup;
@@ -15,6 +17,8 @@ import java.nio.charset.Charset;
  * Created by zksun on 2017/8/19.
  */
 public class FileUploadClient {
+
+    private final static Logger logger = LoggerFactory.getLogger(FileUploadClient.class);
 
     private final static EventLoopGroup group = new NioEventLoopGroup();
 
