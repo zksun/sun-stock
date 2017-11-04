@@ -31,10 +31,8 @@ public class UpdateAllCommand {
 
         LocalDate start = DateUtils.getLocalDateYYYYMMDD(20170922L);
         Future<Boolean> submit = Executors.newSingleThreadExecutor().submit(new UpdateStockCommand(start,
-                600352L, (byte) 0, channelCreator.channel, "/Users/zhikunsun/Documents/new_stock_data"));
+                600352, (byte) 0, channelCreator.channel));
         System.out.println(submit.get());
-        channelCreator.channel.close();
-
     }
 
     private static class ChannelCreator implements Runnable {
@@ -45,7 +43,7 @@ public class UpdateAllCommand {
             FileDownloadClient fileDownloadClient = new FileDownloadClient();
             SocketAddress socketAddress = new InetSocketAddress("218.244.139.178", 65535);
             //SocketAddress socketAddress = new InetSocketAddress("127.0.0.1", 3128);
-            channel = fileDownloadClient.connect(socketAddress, "/Users/zhikunsun/Documents/new_stock_data");
+            channel = fileDownloadClient.connect(socketAddress, "/Users/zhikunsun/Documents/stock_data");
             try {
                 channel.closeFuture().sync();
                 System.out.println("channel closed");

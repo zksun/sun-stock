@@ -41,6 +41,9 @@ public class DownloadFileDecoder extends LengthFieldBasedFrameDecoder {
             fileDO.setCode(code);
             fileDO.setTime(time);
             fileDO.setLength(length);
+            byte[] buf = new byte[length];
+            in.readBytes(buf);
+            fileDO.setDocument(buf);
 
             return fileDO;
         } finally {
