@@ -32,6 +32,7 @@ public class FileUploadHandler extends SimpleChannelInboundHandler<FileDO> {
 
         if (msg.getType() != 0) {
             ctx.fireChannelRead(msg);
+            return;
         }
 
         String directoryName = FileUtils.getDirectoryName(msg.getType(), msg.getCode());
