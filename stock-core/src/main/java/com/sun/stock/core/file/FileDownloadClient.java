@@ -26,7 +26,7 @@ public class FileDownloadClient {
 
     private final static EventLoopGroup group = new NioEventLoopGroup();
 
-    public Channel connect(SocketAddress address) {
+    public Channel connect(SocketAddress address, String path) {
         Bootstrap bootstrap = new Bootstrap();
         bootstrap.group(group).channel(NioSocketChannel.class)
                 .option(ChannelOption.TCP_NODELAY, true)
@@ -40,7 +40,7 @@ public class FileDownloadClient {
                                 LENGTH_ADJUSTMENT,
                                 INITIAL_BYTES_TO_STRIP,
                                 false));
-                        ch.pipeline().addLast(new ClientCallbackHandler());
+                        ch.pipeline().addLast(new ClientDownloadCallbackHandler(path));
                     }
                 });
         try {
@@ -54,9 +54,8 @@ public class FileDownloadClient {
     public static void main(String[] args) {
         final Channel channel;
         FileDownloadClient fileDownloadClient = new FileDownloadClient();
-        FileUploadClient client = new FileUploadClient();
         SocketAddress socketAddress = new InetSocketAddress("127.0.0.1", 3128);
-        channel = client.connect(socketAddress);
+        channel = fileDownloadClient.connect(socketAddress, "/Users/zhikunsun/Documents/new_stock_data");
         FileDO fileDO = new FileDO();
         fileDO.setTime(20170821L);
         fileDO.setCode(600352);

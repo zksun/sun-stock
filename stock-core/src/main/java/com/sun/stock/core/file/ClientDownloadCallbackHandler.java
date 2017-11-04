@@ -9,30 +9,23 @@ import io.netty.channel.SimpleChannelInboundHandler;
 import java.io.File;
 import java.io.RandomAccessFile;
 
-
 /**
- * Created by zksun on 2017/8/19.
+ * Created by zhikunsun on 2017/11/4.
  */
-public class FileUploadHandler extends SimpleChannelInboundHandler<FileDO> {
+public class ClientDownloadCallbackHandler extends SimpleChannelInboundHandler<FileDO> {
 
-    private final static Logger logger = LoggerFactory.getLogger(FileUploadHandler.class.getName());
+    private final static Logger logger = LoggerFactory.getLogger(ClientDownloadCallbackHandler.class.getName());
 
     private final String path;
 
-    public FileUploadHandler(String path) {
+    public ClientDownloadCallbackHandler(String path) {
         this.path = path;
     }
 
     @Override
     protected void channelRead0(ChannelHandlerContext ctx, FileDO msg) throws Exception {
         if (null == msg) {
-            ctx.channel().writeAndFlush("failure");
             throw new RuntimeException("decode no fileDO");
-        }
-
-        if (msg.getType() != 0) {
-            ctx.fireChannelRead(msg);
-            return;
         }
 
         String directoryName = FileUtils.getDirectoryName(msg.getType(), msg.getCode());
@@ -40,25 +33,24 @@ public class FileUploadHandler extends SimpleChannelInboundHandler<FileDO> {
         File file = FileUtils.filePath(directory, msg.getTime());
 
         RandomAccessFile randomAccessFile = null;
-            try {
-                randomAccessFile = new RandomAccessFile(file, "rw");
-                randomAccessFile.seek(0);
-                randomAccessFile.write(msg.getDocument());
-                ctx.channel().writeAndFlush("success");
-            } catch (Throwable throwable) {
-                ctx.channel().writeAndFlush("failure");
-                logger.error("store file failure with file:{}", throwable, file.getName());
-            } finally {
-                if (null != randomAccessFile) {
-                    randomAccessFile.close();
-                }
+        try {
+            randomAccessFile = new RandomAccessFile(file, "rw");
+            randomAccessFile.seek(0);
+            randomAccessFile.write(msg.getDocument());
+        } catch (Throwable throwable) {
+            ctx.channel().writeAndFlush("failure");
+            logger.error("store file failure with file:{}", throwable, file.getName());
+        } finally {
+            if (null != randomAccessFile) {
+                randomAccessFile.close();
+            }
         }
     }
 
     @Override
     public void exceptionCaught(ChannelHandlerContext ctx, Throwable cause) throws Exception {
         super.exceptionCaught(ctx, cause);
-        logger.error("upload file failure cause: " + cause);
+        logger.error("download file failure cause: " + cause);
         ctx.channel().close();
     }
 }
