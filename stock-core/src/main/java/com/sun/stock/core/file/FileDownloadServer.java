@@ -10,15 +10,15 @@ import io.netty.handler.codec.string.StringEncoder;
 import java.nio.charset.Charset;
 
 /**
- * Created by zksun on 2017/8/18.
+ * Created by zhikunsun on 2017/11/4.
  */
-public class FileUploadServer {
-
+public class FileDownloadServer  {
     private final int MAX_FRAME_LENGTH = 1024 * 1024;
     private final int LENGTH_FILE_LENGTH = 4;
     private final int LENGTH_FILE_OFFSET = 13;
     private final int LENGTH_ADJUSTMENT = 0;
     private final int INITIAL_BYTES_TO_STRIP = 0;
+
 
     public void bind(int port, String path) {
         final EventLoopGroup bossGroup = new NioEventLoopGroup(1);
@@ -35,7 +35,7 @@ public class FileUploadServer {
                     protected void initChannel(Channel ch) throws Exception {
                         ch.pipeline().addLast(new StringEncoder(Charset.forName("UTF-8")))
                                 .addLast(new FileUploadServerDecoder(MAX_FRAME_LENGTH, LENGTH_FILE_OFFSET, LENGTH_FILE_LENGTH, LENGTH_ADJUSTMENT, INITIAL_BYTES_TO_STRIP, false))
-                                .addLast(new FileUploadHandler(path));
+                                .addLast(new FileDownloadHandler(path));
                     }
                 });
         try {
@@ -47,9 +47,5 @@ public class FileUploadServer {
             bossGroup.shutdownGracefully();
             workerGroup.shutdownGracefully();
         }
-    }
-
-    public static void main(String[] args) {
-        new FileUploadServer().bind(Integer.valueOf(args[0]), args[1]);
     }
 }
