@@ -7,6 +7,7 @@ import io.netty.channel.*;
 import io.netty.channel.nio.NioEventLoopGroup;
 import io.netty.channel.socket.nio.NioSocketChannel;
 
+import java.net.InetSocketAddress;
 import java.net.SocketAddress;
 
 /**
@@ -47,6 +48,26 @@ public class FileDownloadClient {
             return sync.channel();
         } catch (Exception e) {
             throw new RuntimeException(e);
+        }
+    }
+
+    public static void main(String[] args) {
+        final Channel channel;
+        FileDownloadClient fileDownloadClient = new FileDownloadClient();
+        FileUploadClient client = new FileUploadClient();
+        SocketAddress socketAddress = new InetSocketAddress("127.0.0.1", 3128);
+        channel = client.connect(socketAddress);
+        FileDO fileDO = new FileDO();
+        fileDO.setTime(20170821L);
+        fileDO.setCode(600352);
+        fileDO.setType((byte) 1);
+        fileDO.setLength(0);
+
+        ChannelFuture channelFuture = channel.writeAndFlush(fileDO);
+        try {
+            channelFuture.sync();
+        } catch (InterruptedException e) {
+            logger.error("", e);
         }
     }
 
