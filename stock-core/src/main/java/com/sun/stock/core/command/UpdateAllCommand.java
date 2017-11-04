@@ -4,11 +4,15 @@ import com.sun.stock.core.common.logging.Logger;
 import com.sun.stock.core.common.logging.LoggerFactory;
 import com.sun.stock.core.common.util.DateUtils;
 import com.sun.stock.core.file.FileDownloadClient;
+import com.sun.stock.core.util.StockUtil;
 import io.netty.channel.Channel;
+import io.netty.channel.socket.InternetProtocolFamily;
 
 import java.net.InetSocketAddress;
 import java.net.SocketAddress;
 import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.concurrent.ExecutionException;
 import java.util.concurrent.Executors;
 import java.util.concurrent.Future;
@@ -29,10 +33,26 @@ public class UpdateAllCommand {
             }
         }
 
-        LocalDate start = DateUtils.getLocalDateYYYYMMDD(20170922L);
-        Future<Boolean> submit = Executors.newSingleThreadExecutor().submit(new UpdateStockCommand(start,
-                600352, (byte) 0, channelCreator.channel));
-        System.out.println(submit.get());
+        LocalDate start = DateUtils.getLocalDateYYYYMMDD(20170923L);
+
+        List<String> allStockDirectoryNames = StockUtil.getAllStockDirectoryNames("/Users/zhikunsun/Documents/stock_data");
+        List<UpdateStockCommand> commands = null;
+        if (null != allStockDirectoryNames && allStockDirectoryNames.size() > 0) {
+            commands = new ArrayList<>();
+            for (String stock : allStockDirectoryNames) {
+                String[] stockCode = StockUtil.getStockCode(stock);
+                byte type = StockUtil.getType(stockCode[0]);
+                Integer code = Integer.valueOf(stockCode[1]);
+                commands.add(new UpdateStockCommand(start,
+                        code, type, channelCreator.channel));
+            }
+        }
+
+        if (null != commands) {
+            List<Future<Boolean>> futures = Executors.newSingleThreadExecutor().invokeAll(commands);
+            System.out.println(futures);
+        }
+
     }
 
     private static class ChannelCreator implements Runnable {

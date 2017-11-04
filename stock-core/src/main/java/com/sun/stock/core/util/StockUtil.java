@@ -2,6 +2,8 @@ package com.sun.stock.core.util;
 
 import com.sun.stock.core.algorithm.utils.IOUtil;
 import com.sun.stock.core.common.internal.StringUtil;
+import com.sun.stock.core.common.logging.Logger;
+import com.sun.stock.core.common.logging.LoggerFactory;
 import com.sun.stock.core.domain.enums.StockType;
 import com.sun.stock.core.system.Environment;
 import org.apache.commons.lang3.StringUtils;
@@ -19,6 +21,8 @@ import java.util.List;
  * Created by zksun on 16-2-10.
  */
 public final class StockUtil {
+
+    private final static Logger logger = LoggerFactory.getLogger(StockUtil.class);
     public final static String STOCK_DIRECTORY_PATTERN = "(sh|sz)[0-9]{6}";
 
     public final static String STOCK_FILE_PATTERN = "[0-9]{8}\\.txt";
@@ -53,8 +57,18 @@ public final class StockUtil {
                 return new String[]{"sz", code};
             }
         } else {
+            logger.error("get stock code: " + name);
             throw new IllegalArgumentException();
         }
+    }
+
+    public static byte getType(String type) {
+        if (type.equals("sh")) {
+            return 0;
+        } else if (type.equals("sz")) {
+            return 1;
+        }
+        throw new IllegalArgumentException("no type");
     }
 
     public static boolean isStockDataFile(File file) {
@@ -128,7 +142,10 @@ public final class StockUtil {
         if (allStockDirectory.length > 0) {
             List<String> list = new ArrayList<>();
             for (int i = 0; i < allStockDirectory.length; i++) {
-                list.add(allStockDirectory[i].getName().trim());
+                String name = allStockDirectory[i].getName().trim();
+                if (isStockDirectoryName(name)) {
+                    list.add(name);
+                }
             }
             return list;
         }

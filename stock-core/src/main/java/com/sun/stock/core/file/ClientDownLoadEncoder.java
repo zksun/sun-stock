@@ -3,6 +3,7 @@ package com.sun.stock.core.file;
 import io.netty.buffer.ByteBuf;
 import io.netty.channel.ChannelHandlerContext;
 import io.netty.handler.codec.MessageToByteEncoder;
+import io.netty.util.ReferenceCountUtil;
 
 /**
  * Created by zhikunsun on 2017/11/4.
@@ -10,10 +11,14 @@ import io.netty.handler.codec.MessageToByteEncoder;
 public class ClientDownLoadEncoder extends MessageToByteEncoder<FileDO> {
     @Override
     protected void encode(ChannelHandlerContext channelHandlerContext, FileDO msg, ByteBuf out) throws Exception {
-        out.writeByte(msg.getType());
-        out.writeIntLE(msg.getCode());
-        out.writeLongLE(msg.getTime());
-        out.writeIntLE(msg.getLength());
-        return;
+        try {
+            out.writeByte(msg.getType());
+            out.writeIntLE(msg.getCode());
+            out.writeLongLE(msg.getTime());
+            out.writeIntLE(msg.getLength());
+            return;
+        } finally {
+            ReferenceCountUtil.release(out);
+        }
     }
 }
