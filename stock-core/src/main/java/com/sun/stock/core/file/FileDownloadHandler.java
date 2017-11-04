@@ -36,27 +36,34 @@ public class FileDownloadHandler extends SimpleChannelInboundHandler<FileDO> {
         String directoryName = FileUtils.getDirectoryName(msg.getType(), msg.getCode());
         String directory = FileUtils.createDirectory(path, directoryName);
         File file = FileUtils.filePath(directory, msg.getTime());
-        BufferedInputStream bufferedInputStream = null;
-        try {
-            bufferedInputStream = new BufferedInputStream(new FileInputStream(file));
-            int available = bufferedInputStream.available();
-            byte[] fileBytes;
-            bufferedInputStream.read(fileBytes = new byte[available]);
-            if (null != fileBytes || fileBytes.length > 0) {
-                FileDO fileDO = new FileDO();
-                fileDO.setCode(msg.getCode());
-                fileDO.setLength(fileBytes.length);
-                fileDO.setDocument(fileBytes);
-                ctx.writeAndFlush(fileDO);
-            }
-        } catch (Exception e) {
-            logger.error("download file error: ", e);
-        } finally {
-            if (null != bufferedInputStream) {
-                bufferedInputStream.close();
+        if (file.exists() && file.isFile()) {
+            BufferedInputStream bufferedInputStream = null;
+            try {
+                bufferedInputStream = new BufferedInputStream(new FileInputStream(file));
+                int available = bufferedInputStream.available();
+                byte[] fileBytes;
+                bufferedInputStream.read(fileBytes = new byte[available]);
+                if (null != fileBytes || fileBytes.length > 0) {
+                    FileDO fileDO = new FileDO();
+                    fileDO.setCode(msg.getCode());
+                    fileDO.setLength(fileBytes.length);
+                    fileDO.setDocument(fileBytes);
+                    ctx.writeAndFlush(fileDO);
+                }
+            } catch (Exception e) {
+                logger.error("download file error: ", e);
+            } finally {
+                if (null != bufferedInputStream) {
+                    bufferedInputStream.close();
+                }
             }
         }
+    }
 
-
+    @Override
+    public void exceptionCaught(ChannelHandlerContext ctx, Throwable cause) throws Exception {
+        super.exceptionCaught(ctx, cause);
+        logger.error("download file failure cause: " + cause);
+        ctx.channel().close();
     }
 }
