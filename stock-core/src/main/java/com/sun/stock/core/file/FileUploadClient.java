@@ -60,7 +60,7 @@ public class FileUploadClient {
             r.read(bytes);
             fileDO.setDocument(bytes);
         } catch (Exception e) {
-            e.printStackTrace();
+            logger.error("updateFile error", e);
         }
         ChannelFuture channelFuture = channel.writeAndFlush(fileDO);
         try {

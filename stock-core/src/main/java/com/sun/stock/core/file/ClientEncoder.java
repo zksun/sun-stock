@@ -5,7 +5,7 @@ import io.netty.channel.ChannelHandlerContext;
 import io.netty.handler.codec.MessageToByteEncoder;
 
 /**
- * Created by hanshou on 2017/8/19.
+ * Created by zksun on 2017/8/19.
  */
 public class ClientEncoder extends MessageToByteEncoder<FileDO> {
 
