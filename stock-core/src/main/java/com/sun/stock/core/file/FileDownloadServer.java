@@ -34,7 +34,7 @@ public class FileDownloadServer  {
                     @Override
                     protected void initChannel(Channel ch) throws Exception {
                         ch.pipeline().addLast(new StringEncoder(Charset.forName("UTF-8")))
-                                .addLast(new ServerDecoder(MAX_FRAME_LENGTH, LENGTH_FILE_OFFSET, LENGTH_FILE_LENGTH, LENGTH_ADJUSTMENT, INITIAL_BYTES_TO_STRIP, false))
+                                .addLast(new FileDecoder(MAX_FRAME_LENGTH, LENGTH_FILE_OFFSET, LENGTH_FILE_LENGTH, LENGTH_ADJUSTMENT, INITIAL_BYTES_TO_STRIP, false))
                                 .addLast(new FileDownloadHandler(path));
                     }
                 });
