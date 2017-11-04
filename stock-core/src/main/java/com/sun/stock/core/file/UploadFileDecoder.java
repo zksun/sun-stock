@@ -39,12 +39,10 @@ public class UploadFileDecoder extends LengthFieldBasedFrameDecoder {
             fileDO.setType(type);
             fileDO.setCode(code);
             fileDO.setTime(time);
-            if (type == 0) {
-                fileDO.setLength(length);
-                byte[] buf = new byte[length];
-                in.readBytes(buf);
-                fileDO.setDocument(buf);
-            }
+            fileDO.setLength(length);
+            byte[] buf = new byte[length];
+            in.readBytes(buf);
+            fileDO.setDocument(buf);
 
             return fileDO;
         } finally {
