@@ -53,6 +53,8 @@ public class UpdateAllCommand {
             }
         }
 
+        logger.warn("all commands have run");
+
     }
 
     private static class ChannelCreator implements Runnable {
