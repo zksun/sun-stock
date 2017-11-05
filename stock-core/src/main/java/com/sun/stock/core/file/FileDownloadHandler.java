@@ -66,7 +66,7 @@ public class FileDownloadHandler extends SimpleChannelInboundHandler<FileDO> {
 
     @Override
     public void channelWritabilityChanged(ChannelHandlerContext ctx) throws Exception {
-        while (ctx.channel().isWritable()) {
+        while (ctx.channel().isWritable() && null != downloadWaiting.peek()) {
             FileDO msg = downloadWaiting.poll();
             if (null != msg) {
                 String directoryName = FileUtils.getDirectoryName(msg.getType(), msg.getCode());
