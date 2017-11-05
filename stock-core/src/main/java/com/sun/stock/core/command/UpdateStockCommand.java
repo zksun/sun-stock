@@ -46,6 +46,7 @@ public class UpdateStockCommand implements Callable<Boolean> {
             channel.writeAndFlush(fileDO);
             localDate = localDate.plusDays(1);
         }
+
         return true;
     }
 }
