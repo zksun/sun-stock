@@ -16,7 +16,8 @@ public class ClientUploadEncoder extends MessageToByteEncoder<FileDO> {
         out.writeIntLE(msg.getCode());
         out.writeLongLE(msg.getTime());
         out.writeIntLE(msg.getLength());
-        out.writeBytes(msg.getDocument());
+        if (null != msg.getDocument())
+            out.writeBytes(msg.getDocument());
         return;
     }
 }

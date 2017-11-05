@@ -51,7 +51,9 @@ public class FileDownloadHandler extends SimpleChannelInboundHandler<FileDO> {
                     raf.read(buf);
                     fileDO.setDocument(buf);
                     ctx.writeAndFlush(fileDO);
-                    ctx.writeAndFlush("success");
+                    fileDO.setDocument(null);
+                    fileDO.setLength(0);
+                    ctx.writeAndFlush(fileDO);
                 } catch (Exception e) {
                     logger.error("download file error: ", e);
                 } finally {
