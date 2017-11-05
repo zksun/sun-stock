@@ -6,9 +6,11 @@ import io.netty.bootstrap.Bootstrap;
 import io.netty.channel.*;
 import io.netty.channel.nio.NioEventLoopGroup;
 import io.netty.channel.socket.nio.NioSocketChannel;
+import io.netty.handler.codec.string.StringDecoder;
 
 import java.net.InetSocketAddress;
 import java.net.SocketAddress;
+import java.nio.charset.Charset;
 
 /**
  * Created by zhikunsun on 2017/11/4.
@@ -38,6 +40,7 @@ public class FileDownloadClient {
                                 INITIAL_BYTES_TO_STRIP,
                                 false));
                         ch.pipeline().addLast(new ClientDownloadCallbackHandler(path));
+                        ch.pipeline().addLast(new ClientCallbackHandler());
                     }
                 });
         try {

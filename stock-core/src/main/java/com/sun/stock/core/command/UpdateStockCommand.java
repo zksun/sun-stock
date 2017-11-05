@@ -20,6 +20,8 @@ public class UpdateStockCommand implements Callable<Boolean> {
     private final byte type;
     private final Channel channel;
 
+    public static final Object COMMAND_LOCK = new Object();
+
     public UpdateStockCommand(LocalDate start, Integer stockCode, byte type, Channel channel) {
         this.start = start;
         this.stockCode = stockCode;
@@ -45,6 +47,10 @@ public class UpdateStockCommand implements Callable<Boolean> {
 
             channel.writeAndFlush(fileDO);
             localDate = localDate.plusDays(1);
+
+            synchronized (COMMAND_LOCK) {
+                COMMAND_LOCK.wait();
+            }
         }
 
         return true;
