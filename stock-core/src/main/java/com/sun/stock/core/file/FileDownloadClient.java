@@ -32,6 +32,7 @@ public class FileDownloadClient {
                 .handler(new ChannelInitializer<Channel>() {
                     @Override
                     protected void initChannel(Channel ch) throws Exception {
+                        ch.pipeline().addLast(new StringDecoder(Charset.forName("UTF-8")));
                         ch.pipeline().addLast(new ClientDownLoadEncoder());
                         ch.pipeline().addLast(new ClientDownloadDecoder(MAX_FRAME_LENGTH,
                                 LENGTH_FILE_OFFSET,
