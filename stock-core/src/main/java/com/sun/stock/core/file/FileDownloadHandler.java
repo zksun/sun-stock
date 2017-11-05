@@ -8,6 +8,9 @@ import io.netty.channel.DefaultFileRegion;
 import io.netty.channel.SimpleChannelInboundHandler;
 
 import java.io.*;
+import java.util.ArrayDeque;
+import java.util.Queue;
+import java.util.concurrent.LinkedBlockingQueue;
 
 /**
  * Created by zhikunsun on 2017/11/4.
@@ -17,6 +20,8 @@ public class FileDownloadHandler extends SimpleChannelInboundHandler<FileDO> {
     private final static Logger logger = LoggerFactory.getLogger(FileDownloadHandler.class.getName());
 
     private final String path;
+
+    private Queue<FileDO> downloadWaiting = new LinkedBlockingQueue<>();
 
     public FileDownloadHandler(String path) {
         this.path = path;
@@ -33,26 +38,61 @@ public class FileDownloadHandler extends SimpleChannelInboundHandler<FileDO> {
         String directory = FileUtils.createDirectory(path, directoryName);
         File file = FileUtils.filePath(directory, msg.getTime());
         if (file.exists() && file.isFile()) {
-            RandomAccessFile raf = null;
-            try {
-                raf = new RandomAccessFile(file, "r");
-                FileDO fileDO = new FileDO();
-                fileDO.setType(msg.getType());
-                fileDO.setCode(msg.getCode());
-                fileDO.setTime(msg.getTime());
-                fileDO.setLength((int) raf.length());
-                byte[] buf = new byte[(int) raf.length()];
-                raf.read(buf);
-                fileDO.setDocument(buf);
-                ctx.writeAndFlush(fileDO);
+            if (ctx.channel().isWritable()) {
+                RandomAccessFile raf = null;
+                try {
+                    raf = new RandomAccessFile(file, "r");
+                    FileDO fileDO = new FileDO();
+                    fileDO.setType(msg.getType());
+                    fileDO.setCode(msg.getCode());
+                    fileDO.setTime(msg.getTime());
+                    fileDO.setLength((int) raf.length());
+                    byte[] buf = new byte[(int) raf.length()];
+                    raf.read(buf);
+                    fileDO.setDocument(buf);
+                    ctx.writeAndFlush(fileDO);
+                } catch (Exception e) {
+                    logger.error("download file error: ", e);
+                } finally {
+                    if (null != raf) {
+                        raf.close();
+                    }
+                }
+            } else {
+                downloadWaiting.add(msg);
+            }
+        }
+    }
 
-            } catch (Exception e) {
-                logger.error("download file error: ", e);
-            } finally {
-                if (null != raf) {
-                    raf.close();
+    @Override
+    public void channelWritabilityChanged(ChannelHandlerContext ctx) throws Exception {
+        while (ctx.channel().isWritable()) {
+            FileDO msg = downloadWaiting.poll();
+            if (null != msg) {
+                String directoryName = FileUtils.getDirectoryName(msg.getType(), msg.getCode());
+                String directory = FileUtils.createDirectory(path, directoryName);
+                File file = FileUtils.filePath(directory, msg.getTime());
+                RandomAccessFile raf = null;
+                try {
+                    raf = new RandomAccessFile(file, "r");
+                    FileDO fileDO = new FileDO();
+                    fileDO.setType(msg.getType());
+                    fileDO.setCode(msg.getCode());
+                    fileDO.setTime(msg.getTime());
+                    fileDO.setLength((int) raf.length());
+                    byte[] buf = new byte[(int) raf.length()];
+                    raf.read(buf);
+                    fileDO.setDocument(buf);
+                    ctx.writeAndFlush(fileDO);
+                } catch (Exception e) {
+                    logger.error("download file error: ", e);
+                } finally {
+                    if (null != raf) {
+                        raf.close();
+                    }
                 }
             }
+
         }
     }
 
