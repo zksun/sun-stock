@@ -36,6 +36,12 @@ public class ClientDownloadDecoder extends LengthFieldBasedFrameDecoder {
                 throw new RuntimeException("data low than the protocol length ");
             }
 
+            if (length == 0) {
+                return "success";
+            } else if (length == 1) {
+                return "failure";
+            }
+
             FileDO fileDO = new FileDO();
             fileDO.setType(type);
             fileDO.setCode(code);

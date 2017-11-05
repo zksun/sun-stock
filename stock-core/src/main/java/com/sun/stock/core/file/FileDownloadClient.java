@@ -32,7 +32,6 @@ public class FileDownloadClient {
                 .handler(new ChannelInitializer<Channel>() {
                     @Override
                     protected void initChannel(Channel ch) throws Exception {
-                        ch.pipeline().addLast(new StringDecoder(Charset.forName("UTF-8")));
                         ch.pipeline().addLast(new ClientDownLoadEncoder());
                         ch.pipeline().addLast(new ClientDownloadDecoder(MAX_FRAME_LENGTH,
                                 LENGTH_FILE_OFFSET,
@@ -55,8 +54,8 @@ public class FileDownloadClient {
     public static void main(String[] args) {
         final Channel channel;
         FileDownloadClient fileDownloadClient = new FileDownloadClient();
-        SocketAddress socketAddress = new InetSocketAddress("218.244.139.178", 65535);
-        //SocketAddress socketAddress = new InetSocketAddress("127.0.0.1", 3128);
+        //SocketAddress socketAddress = new InetSocketAddress("218.244.139.178", 65535);
+        SocketAddress socketAddress = new InetSocketAddress("127.0.0.1", 3128);
         channel = fileDownloadClient.connect(socketAddress, "/Users/zhikunsun/Documents/new_stock_data");
         FileDO fileDO = new FileDO();
         fileDO.setTime(20170921L);
