@@ -15,7 +15,6 @@ public class FileDO implements Serializable {
 
     byte[] document;
 
-    DefaultFileRegion region;
 
     public byte getType() {
         return type;
@@ -57,11 +56,5 @@ public class FileDO implements Serializable {
         this.document = document;
     }
 
-    public DefaultFileRegion getRegion() {
-        return region;
-    }
 
-    public void setRegion(DefaultFileRegion region) {
-        this.region = region;
-    }
 }
