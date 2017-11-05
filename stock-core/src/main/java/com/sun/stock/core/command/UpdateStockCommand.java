@@ -6,6 +6,8 @@ import io.netty.channel.Channel;
 
 import java.time.LocalDate;
 import java.util.concurrent.Callable;
+import java.util.concurrent.LinkedBlockingQueue;
+import java.util.concurrent.TimeUnit;
 
 import static java.time.DayOfWeek.SATURDAY;
 import static java.time.DayOfWeek.SUNDAY;
@@ -20,7 +22,7 @@ public class UpdateStockCommand implements Callable<Boolean> {
     private final byte type;
     private final Channel channel;
 
-    public static final Object COMMAND_LOCK = new Object();
+    public static final LinkedBlockingQueue<String> okQueue = new LinkedBlockingQueue<>();
 
     public UpdateStockCommand(LocalDate start, Integer stockCode, byte type, Channel channel) {
         this.start = start;
@@ -33,7 +35,6 @@ public class UpdateStockCommand implements Callable<Boolean> {
     public Boolean call() throws Exception {
         LocalDate localDate = this.start;
         while (!localDate.isAfter(LocalDate.now())) {
-
             if (localDate.getDayOfWeek().equals(SATURDAY) || localDate.getDayOfWeek().equals(SUNDAY)) {
                 localDate = localDate.plusDays(1);
                 continue;
@@ -47,10 +48,7 @@ public class UpdateStockCommand implements Callable<Boolean> {
 
             channel.writeAndFlush(fileDO);
             localDate = localDate.plusDays(1);
-
-            synchronized (COMMAND_LOCK) {
-                COMMAND_LOCK.wait();
-            }
+            okQueue.poll(100, TimeUnit.MILLISECONDS);
         }
 
         return true;

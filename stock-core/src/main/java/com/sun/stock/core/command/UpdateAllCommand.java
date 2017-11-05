@@ -14,7 +14,6 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.ExecutionException;
 import java.util.concurrent.Executors;
-import java.util.concurrent.Future;
 
 /**
  * Created by zhikunsun on 2017/11/5.
@@ -33,7 +32,7 @@ public class UpdateAllCommand {
             }
         }
 
-        LocalDate start = DateUtils.getLocalDateYYYYMMDD(20170923L);
+        LocalDate start = DateUtils.getLocalDateYYYYMMDD(20170925L);
 
         List<String> allStockDirectoryNames = StockUtil.getAllStockDirectoryNames("/Users/zhikunsun/Documents/stock_data");
         List<UpdateStockCommand> commands = null;
@@ -49,8 +48,9 @@ public class UpdateAllCommand {
         }
 
         if (null != commands) {
-            List<Future<Boolean>> futures = Executors.newSingleThreadExecutor().invokeAll(commands);
-            System.out.println(futures);
+            for (UpdateStockCommand command : commands) {
+                Executors.newSingleThreadExecutor().submit(command).get();
+            }
         }
 
     }
@@ -63,7 +63,7 @@ public class UpdateAllCommand {
             FileDownloadClient fileDownloadClient = new FileDownloadClient();
             SocketAddress socketAddress = new InetSocketAddress("218.244.139.178", 65535);
             //SocketAddress socketAddress = new InetSocketAddress("127.0.0.1", 3128);
-            channel = fileDownloadClient.connect(socketAddress, "/Users/zhikunsun/Documents/new_stock_data");
+            channel = fileDownloadClient.connect(socketAddress, "/Users/zhikunsun/Documents/stock_data");
             try {
                 channel.closeFuture().sync();
                 System.out.println("channel closed");

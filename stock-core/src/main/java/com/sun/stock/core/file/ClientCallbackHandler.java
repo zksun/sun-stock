@@ -16,7 +16,7 @@ public class ClientCallbackHandler extends SimpleChannelInboundHandler<String> {
     protected void channelRead0(ChannelHandlerContext ctx, String msg) throws Exception {
         if (msg.equals("success")) {
             logger.info("send stock txt file success");
-            UpdateStockCommand.COMMAND_LOCK.notify();
+            UpdateStockCommand.okQueue.add(msg);
         } else if (msg.equals("failure")) {
             logger.info("send stock txt file failure");
         }
