@@ -4,6 +4,7 @@ import com.sun.stock.core.common.logging.Logger;
 import com.sun.stock.core.common.logging.LoggerFactory;
 import com.sun.stock.core.file.util.FileUtils;
 import io.netty.channel.ChannelHandlerContext;
+import io.netty.channel.DefaultFileRegion;
 import io.netty.channel.SimpleChannelInboundHandler;
 
 import java.io.*;
@@ -32,26 +33,21 @@ public class FileDownloadHandler extends SimpleChannelInboundHandler<FileDO> {
         String directory = FileUtils.createDirectory(path, directoryName);
         File file = FileUtils.filePath(directory, msg.getTime());
         if (file.exists() && file.isFile()) {
-            BufferedInputStream bufferedInputStream = null;
+            RandomAccessFile raf = null;
             try {
-                bufferedInputStream = new BufferedInputStream(new FileInputStream(file));
-                int available = bufferedInputStream.available();
-                byte[] fileBytes;
-                bufferedInputStream.read(fileBytes = new byte[available]);
-                if (null != fileBytes || fileBytes.length > 0) {
-                    FileDO fileDO = new FileDO();
-                    fileDO.setType(msg.getType());
-                    fileDO.setCode(msg.getCode());
-                    fileDO.setTime(msg.getTime());
-                    fileDO.setLength(fileBytes.length);
-                    fileDO.setDocument(fileBytes);
-                    ctx.writeAndFlush(fileDO);
-                }
+                raf = new RandomAccessFile(file, "r");
+                FileDO fileDO = new FileDO();
+                fileDO.setType(msg.getType());
+                fileDO.setCode(msg.getCode());
+                fileDO.setTime(msg.getTime());
+                fileDO.setLength((int) raf.length());
+                fileDO.setRegion(new DefaultFileRegion(raf.getChannel(), 0, raf.length()));
+                ctx.writeAndFlush(fileDO);
             } catch (Exception e) {
                 logger.error("download file error: ", e);
             } finally {
-                if (null != bufferedInputStream) {
-                    bufferedInputStream.close();
+                if (null != raf) {
+                    raf.close();
                 }
             }
         }

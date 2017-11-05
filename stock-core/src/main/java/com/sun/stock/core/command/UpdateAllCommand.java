@@ -20,6 +20,7 @@ import java.util.concurrent.Future;
  * Created by zhikunsun on 2017/11/5.
  */
 public class UpdateAllCommand {
+
     private final static Logger logger = LoggerFactory.getLogger(UpdateAllCommand.class);
 
     public static void main(String[] args) throws ExecutionException, InterruptedException {
