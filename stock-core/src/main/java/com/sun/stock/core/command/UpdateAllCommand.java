@@ -32,7 +32,7 @@ public class UpdateAllCommand {
             }
         }
 
-        LocalDate start = DateUtils.getLocalDateYYYYMMDD(20170925L);
+        LocalDate start = DateUtils.getLocalDateYYYYMMDD(20171104L);
 
         List<String> allStockDirectoryNames = StockUtil.getAllStockDirectoryNames("/Users/zhikunsun/Documents/stock_data");
         List<UpdateStockCommand> commands = null;

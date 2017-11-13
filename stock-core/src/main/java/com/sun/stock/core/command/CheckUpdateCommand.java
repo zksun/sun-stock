@@ -22,7 +22,7 @@ public class CheckUpdateCommand implements Callable<List<String>> {
         List<String> allStockDirectoryNames = StockUtil.getAllStockDirectoryNames("/Users/zhikunsun/Documents/stock_data");
         for (String directory : allStockDirectoryNames) {
             String d = FileUtils.createDirectory("/Users/zhikunsun/Documents/stock_data", directory);
-            File file = FileUtils.filePath(d, 20171103L);
+            File file = FileUtils.filePath(d, 20171113L);
             if (!file.exists()) {
                 maybeUnUpdateList.add(d);
             }
